@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Directorio de comercios</title>
+<meta name="description" content="Encontrá gomerías, cafeterías, peluquerías y más comercios cerca tuyo. Mirá si están abiertos y escribí por WhatsApp o llamá con un toque.">
+<meta name="theme-color" content="#FFD21F">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Directorio">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Directorio de comercios">
+<meta property="og:description" content="Gomerías, cafeterías, peluquerías y más, con horarios, WhatsApp y mapa.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFD21F'/%3E%3Cpath d='M32 10c-9 0-16 7-16 16 0 11 16 28 16 28s16-17 16-28c0-9-7-16-16-16z' fill='%230B1B4D'/%3E%3Ccircle cx='32' cy='26' r='6' fill='%23FFD21F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,700..900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --amar:#FFD21F; --navy:#0B1B4D; --papel:#F4F7FF; --tinta:#0B1B4D; --tinta-2:#45527A; --linea:#D3DAEE;
+  --ok:#0B7A45; --ok-bg:#D8F6E5; --pronto:#A14F00; --pronto-bg:#FFE7CC; --no:#B3261E; --no-bg:#FFE0DC; --nd-bg:#E8ECF4;
+  --wa:#0F8F48; --tel:#1D5FD6;
+  --f-titulo:'Archivo','Arial Black','Helvetica Neue',Arial,sans-serif;
+  --f-texto:'Atkinson Hyperlegible','Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--f-texto);font-size:18px;line-height:1.4;color:var(--tinta);background:var(--papel);min-height:100vh;padding-bottom:var(--safe-b)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--navy);outline-offset:2px;box-shadow:0 0 0 7px #fff}
+.wrap{width:100%;max-width:1040px;margin:0 auto;padding:0 16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+svg.i{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.emo{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-style:normal}
+
+/* ---------- botones tipo "tecla" ---------- */
+.btn{min-height:60px;padding:0 18px;border-radius:16px;border:0;background:#fff;color:var(--navy);font-weight:700;font-size:19px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-align:center;box-shadow:0 5px 0 rgba(11,27,77,.28),inset 0 0 0 3px var(--navy);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(11,27,77,.28),inset 0 0 0 3px var(--navy)}
+.btn .emo{font-size:26px}
+.btn.wa{background:var(--wa);color:#fff;box-shadow:0 5px 0 #09592D}
+.btn.wa:active{box-shadow:0 1px 0 #09592D}
+.btn.tel{background:var(--tel);color:#fff;box-shadow:0 5px 0 #123E8E}
+.btn.tel:active{box-shadow:0 1px 0 #123E8E}
+.btn.pri{background:var(--navy);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.35)}
+.btn.am{background:var(--amar);box-shadow:0 5px 0 #A88800,inset 0 0 0 3px var(--navy)}
+.btn.peligro{background:#fff;color:var(--no);box-shadow:0 5px 0 rgba(179,38,30,.35),inset 0 0 0 3px var(--no)}
+.btn[aria-disabled="true"],.btn:disabled{opacity:.45;pointer-events:none}
+
+/* ---------- cabecera ---------- */
+.hero{background:var(--amar);color:var(--navy);padding:calc(12px + var(--safe-t)) 0 22px;border-bottom:6px solid var(--navy)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-titulo);font-weight:900;font-size:19px;line-height:1.05;text-decoration:none}
+.brand small{display:block;font-family:var(--f-texto);font-weight:700;font-size:15px;margin-top:2px}
+.brand svg{width:40px;height:40px}
+.btn-inst{min-height:48px;padding:0 14px;border-radius:14px;border:3px solid var(--navy);background:transparent;font-weight:700;display:inline-flex;align-items:center;gap:8px}
+.hero h1{font-family:var(--f-titulo);font-stretch:118%;font-weight:900;font-size:clamp(38px,11vw,68px);line-height:1;letter-spacing:-.015em;margin-bottom:16px}
+.busq{display:flex;align-items:center;gap:8px;background:#fff;border:3px solid var(--navy);border-radius:18px;padding:0 8px 0 14px;height:66px}
+.busq input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:20px;height:100%}
+.busq input::placeholder{color:#6B7893}
+.busq:focus-within{box-shadow:0 0 0 5px #fff,0 0 0 8px var(--navy)}
+.busq .ic{width:46px;height:46px;border-radius:50%;border:0;background:var(--navy);color:#fff;display:none;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.busq .ic.on,.busq.lleno .limpiar{display:flex}
+.busq .limpiar{background:var(--nd-bg);color:var(--navy);display:none}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.chip{min-height:58px;padding:0 10px;border-radius:16px;border:3px solid var(--navy);background:#fff;font-weight:700;font-size:18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 0 rgba(11,27,77,.28)}
+.chip .emo{font-size:26px}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff}
+.chip[aria-pressed="true"]::after{content:"✓";font-weight:900}
+
+/* ---------- avisos ---------- */
+.aviso{background:#fff;border-bottom:3px solid var(--navy);font-size:16px;padding:10px 0}
+.aviso .wrap{display:flex;gap:10px;align-items:flex-start}
+.aviso .emo{font-size:22px}
+
+/* ---------- categorías ---------- */
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:22px 0 6px}
+.tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:10px;min-height:156px;padding:14px 14px 16px;background:var(--c);color:#fff;border-radius:22px;text-decoration:none;box-shadow:0 7px 0 rgba(0,0,0,.28);transition:transform .08s,box-shadow .08s}
+.tile:active{transform:translateY(6px);box-shadow:0 1px 0 rgba(0,0,0,.28)}
+.tile .e{font-size:68px;line-height:1;display:block;filter:drop-shadow(0 3px 0 rgba(0,0,0,.18))}
+.tile b{font-family:var(--f-titulo);font-weight:900;font-size:22px;line-height:1.05;display:block;text-shadow:0 2px 0 rgba(0,0,0,.2)}
+.tile .n{position:absolute;top:12px;right:12px;min-width:34px;height:34px;padding:0 8px;border-radius:17px;background:#fff;color:var(--navy);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center}
+.tile[aria-current="true"]{outline:5px solid var(--navy);outline-offset:3px}
+
+/* ---------- resultados ---------- */
+.cab-res{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:26px 0 14px;flex-wrap:wrap}
+.cab-res h2{font-family:var(--f-titulo);font-stretch:112%;font-weight:900;font-size:28px;line-height:1.05}
+.cab-res p{color:var(--tinta-2);font-size:16px}
+.lista{display:grid;gap:16px;grid-template-columns:1fr;padding-bottom:32px}
+.card{position:relative;background:#fff;border:3px solid var(--navy);border-radius:22px;overflow:hidden;box-shadow:0 6px 0 rgba(11,27,77,.2)}
+.card.oculto{border-style:dashed;opacity:.8}
+.card-link{display:flex;gap:14px;padding:14px 14px 10px;text-decoration:none;align-items:center}
+.media{width:96px;height:96px;flex-shrink:0;border-radius:18px;overflow:hidden}
+.foto,.foto-fb{width:96px;height:96px;display:flex;align-items:center;justify-content:center;object-fit:cover;border-radius:18px}
+.foto-fb{font-size:54px;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+.info{min-width:0;flex:1;padding-right:44px}
+.card h3{font-family:var(--f-titulo);font-weight:900;font-size:22px;line-height:1.1;margin-bottom:8px}
+.meta{display:flex;align-items:center;gap:6px;color:var(--tinta-2);font-size:16px;flex-wrap:wrap;margin-top:6px}
+.voz{position:absolute;top:10px;right:10px;width:48px;height:48px;border-radius:50%;border:3px solid var(--navy);background:var(--amar);font-size:22px;display:flex;align-items:center;justify-content:center}
+.estado{display:inline-flex;align-items:center;gap:8px;font-size:17px;padding:4px 12px 4px 4px;border-radius:999px;font-weight:700;line-height:1.15}
+.estado i{width:28px;height:28px;border-radius:50%;background:currentColor;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-style:normal}
+.estado i::before{color:#fff;font-weight:900;font-size:17px}
+.estado span{font-weight:400;font-size:15px}
+.estado.si{color:var(--ok);background:var(--ok-bg)} .estado.si i::before{content:"✓"}
+.estado.pronto{color:var(--pronto);background:var(--pronto-bg)} .estado.pronto i::before{content:"!"}
+.estado.no{color:var(--no);background:var(--no-bg)} .estado.no i::before{content:"✕"}
+.estado.nd{color:var(--tinta-2);background:var(--nd-bg)} .estado.nd i::before{content:"?"}
+.estado b,.estado span{color:var(--navy)}
+.acciones{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 14px 16px}
+.tag-oculto{display:inline-block;background:var(--navy);color:#fff;font-size:14px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:6px}
+
+/* ---------- vacíos y carga ---------- */
+.vacio{background:#fff;border:3px dashed #8E9CC0;border-radius:22px;padding:30px 20px;text-align:center;margin-bottom:32px}
+.vacio .grande{font-size:64px;line-height:1;margin-bottom:10px;display:block}
+.vacio h3{font-family:var(--f-titulo);font-weight:900;font-size:24px;margin-bottom:8px}
+.vacio p{color:var(--tinta-2);max-width:42ch;margin:0 auto 18px}
+.vacio .fila{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.esq{height:150px;border-radius:22px;background:linear-gradient(100deg,#E3E8F2 30%,#EEF2F9 50%,#E3E8F2 70%);background-size:300% 100%;animation:brillo 1.4s linear infinite}
+@keyframes brillo{to{background-position:-300% 0}}
+
+/* ---------- ficha ---------- */
+.f-cab{background:var(--c,var(--navy));color:#fff;padding:calc(10px + var(--safe-t)) 0 24px;border-bottom:6px solid var(--navy)}
+.volver{min-height:52px;padding:0 18px 0 12px;border-radius:16px;border:3px solid #fff;background:rgba(255,255,255,.16);color:#fff;font-weight:700;display:inline-flex;align-items:center;gap:6px;margin-bottom:14px}
+.portada{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin-bottom:16px;-webkit-overflow-scrolling:touch}
+.portada img{flex:0 0 100%;height:clamp(200px,45vw,340px);object-fit:cover;border-radius:20px;border:3px solid #fff;scroll-snap-align:center;background:rgba(255,255,255,.2)}
+.portada.multi img{flex-basis:88%}
+.f-cab .grande{font-size:80px;line-height:1;display:block;margin-bottom:6px;filter:drop-shadow(0 4px 0 rgba(0,0,0,.2))}
+.f-cab h1{font-family:var(--f-titulo);font-stretch:112%;font-weight:900;font-size:clamp(32px,8vw,50px);line-height:1.03;margin-bottom:10px;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+.f-cab .meta{color:#fff;font-size:18px;margin-bottom:14px}
+.f-cuerpo{display:grid;gap:20px;padding:22px 0 44px}
+.galeria{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.galeria img{height:240px;width:auto;max-width:86vw;object-fit:cover;border-radius:20px;border:3px solid var(--navy);scroll-snap-align:center;flex-shrink:0;background:var(--nd-bg)}
+.f-acc{display:grid;gap:12px}
+.f-acc .btn{min-height:68px;font-size:21px}
+.bloque{background:#fff;border:3px solid var(--navy);border-radius:22px;padding:18px}
+.bloque h2{font-family:var(--f-titulo);font-weight:900;font-size:22px;margin-bottom:12px;display:flex;gap:10px;align-items:center}
+.bloque h2 .emo{font-size:28px}
+.fila-i{display:flex;gap:12px;align-items:flex-start;padding:8px 0;font-size:19px}
+.fila-i .emo{font-size:26px}
+.fila-i a{color:var(--tel);font-weight:700;word-break:break-word}
+.tira{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:14px}
+.dia{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:14px;background:var(--nd-bg);color:var(--tinta-2);font-weight:700;font-size:15px}
+.dia span{font-size:20px;font-weight:900}
+.dia.on{background:var(--ok-bg);color:var(--ok)}
+.dia.hoy{outline:4px solid var(--navy);outline-offset:1px}
+.horas{width:100%;border-collapse:collapse;font-size:18px}
+.horas td{padding:8px 0;border-top:2px solid var(--linea);vertical-align:top}
+.horas tr:first-child td{border-top:0}
+.horas td:last-child{text-align:right}
+.horas tr.hoy td{font-weight:700;color:var(--tel)}
+.nota{font-size:15px;color:var(--tinta-2);margin-top:10px}
+
+/* ---------- pie ---------- */
+.pie{border-top:3px solid var(--navy);padding:22px 0 40px;color:var(--tinta-2);font-size:16px}
+.pie .wrap{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;align-items:center}
+.pie a,.pie .link{color:var(--tel);font-weight:700;background:none;border:0;font-size:16px;text-decoration:underline;min-height:44px}
+
+/* ---------- editor ---------- */
+.barra-ed{position:sticky;top:0;z-index:40;background:var(--navy);color:#fff;padding:calc(8px + var(--safe-t)) 0 10px;border-bottom:4px solid var(--amar)}
+.barra-ed .wrap{display:flex;gap:8px 14px;align-items:center;flex-wrap:wrap}
+.barra-ed b{font-family:var(--f-titulo);font-weight:900;font-size:18px}
+.barra-ed .chico{font-size:14px;opacity:.9;flex:1;min-width:160px}
+.barra-ed .bt{display:flex;gap:8px;flex-wrap:wrap}
+.barra-ed button{min-height:44px;padding:0 14px;border-radius:12px;border:2px solid #fff;background:transparent;color:#fff;font-weight:700;font-size:16px}
+.barra-ed button.am{background:var(--amar);color:var(--navy);border-color:var(--amar)}
+.btn.editar{margin:0 14px 16px;width:calc(100% - 28px);min-height:52px;font-size:18px}
+
+.velo{position:fixed;inset:0;background:rgba(8,16,48,.65);display:none;align-items:flex-end;justify-content:center;z-index:60}
+.velo.abierto{display:flex}
+.hoja{background:#fff;width:100%;max-width:600px;max-height:90vh;overflow:auto;border-radius:24px 24px 0 0;padding:22px 18px calc(24px + var(--safe-b))}
+.hoja.grande{max-height:95vh}
+.hoja h2{font-family:var(--f-titulo);font-weight:900;font-size:26px;margin-bottom:6px}
+.hoja .sub{color:var(--tinta-2);margin-bottom:14px;font-size:16px}
+.hoja h3{font-family:var(--f-titulo);font-weight:900;font-size:19px;margin:16px 0 6px}
+.hoja ol{padding-left:24px;display:grid;gap:8px}
+.hoja>.btn{width:100%;margin-top:18px}
+.campo{display:grid;gap:5px;margin-top:14px}
+.campo>label,.campo>.et{font-weight:700;font-size:17px}
+.campo small{color:var(--tinta-2);font-size:14px}
+.campo input[type=text],.campo input[type=password],.campo input[type=email],.campo input[type=url],.campo input[type=tel],.campo input[type=number],.campo select,.campo textarea{width:100%;min-height:52px;padding:10px 12px;border:3px solid var(--navy);border-radius:14px;background:#fff;font-size:18px}
+.campo textarea{min-height:96px;resize:vertical}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fila-b{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.fila-b .btn{min-height:50px;font-size:16px;padding:0 14px;flex:1;min-width:140px}
+.check{display:flex;align-items:center;gap:12px;font-weight:700;margin-top:14px;min-height:48px}
+.check input{width:28px;height:28px;accent-color:var(--navy);flex-shrink:0}
+.emojis{display:grid;grid-template-columns:repeat(auto-fill,minmax(50px,1fr));gap:6px;margin-top:6px}
+.emojis button{height:50px;border-radius:12px;border:2px solid var(--linea);background:#fff;font-size:28px}
+.emojis button:hover{border-color:var(--navy)}
+.icono-fila{display:flex;gap:10px;align-items:center}
+.icono-fila input{flex:1}
+.vista-ic{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px;background:var(--nd-bg);flex-shrink:0}
+.colores{display:flex;gap:8px;flex-wrap:wrap}
+.colores button{width:46px;height:46px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--linea)}
+.colores button[aria-pressed="true"]{box-shadow:0 0 0 4px var(--navy)}
+.h-fila{display:grid;grid-template-columns:70px 1fr;gap:6px 10px;align-items:center;padding:8px 0;border-top:2px solid var(--linea)}
+.h-fila b{font-size:16px}
+.h-par{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.h-par input[type=time]{min-height:44px;padding:4px 8px;border:2px solid var(--navy);border-radius:10px;font-size:16px;background:#fff}
+.prev{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.prev img{width:74px;height:74px;object-fit:cover;border-radius:12px;border:2px solid var(--navy)}
+.err{background:var(--no-bg);color:var(--no);border:3px solid var(--no);border-radius:14px;padding:12px;margin-top:14px;font-weight:700;display:none}
+.err.on{display:block}
+.lista-cats{display:grid;gap:10px;margin-top:12px}
+.cat-fila{display:flex;align-items:center;gap:12px;padding:10px 12px;border:3px solid var(--navy);border-radius:16px}
+.cat-fila .vista-ic{color:#fff}
+.cat-fila b{flex:1;font-size:19px}
+.cat-fila button{min-height:46px;padding:0 14px;border-radius:12px;border:3px solid var(--navy);background:#fff;font-weight:700}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + var(--safe-b));transform:translateX(-50%);background:var(--navy);color:#fff;padding:14px 20px;border-radius:14px;font-size:17px;font-weight:700;z-index:80;max-width:calc(100% - 32px);display:none}
+.toast.on{display:block}
+
+
+/* ---------- iconos modernos ---------- */
+.ic-svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;display:block}
+.ic-svg .f{fill:currentColor;fill-opacity:.2}
+.tile .e .ic-svg .f{fill-opacity:.3}
+.iconos .ic-svg .f{fill-opacity:.16}
+.ic-emo{display:block;line-height:1}
+.ic-meta{display:inline-flex;font-size:22px}
+.tw{position:relative;display:flex}
+.tw>.tile{flex:1;min-width:0}
+.tile{overflow:hidden;background:linear-gradient(150deg,color-mix(in srgb,var(--c) 80%,#fff) 0%,var(--c) 50%,color-mix(in srgb,var(--c) 70%,#000) 100%);box-shadow:0 7px 0 color-mix(in srgb,var(--c) 55%,#000),0 14px 22px rgba(11,27,77,.16)}
+.tile:active{box-shadow:0 1px 0 color-mix(in srgb,var(--c) 55%,#000),0 4px 8px rgba(11,27,77,.16)}
+.tile::before{content:"";position:absolute;right:-34px;top:-34px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.14)}
+.tile::after{content:"";position:absolute;left:-44px;bottom:-64px;width:150px;height:150px;border-radius:50%;background:rgba(0,0,0,.08)}
+.tile>*{position:relative;z-index:1}
+.tile .e{width:64px;height:64px;border-radius:21px;background:rgba(255,255,255,.22);border:2px solid rgba(255,255,255,.42);display:flex;align-items:center;justify-content:center;font-size:38px;line-height:1;filter:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 5px 12px rgba(0,0,0,.16)}
+.tile .e .ic-svg{stroke-width:1.65;filter:drop-shadow(0 2px 2px rgba(0,0,0,.22))}
+.tile .n{z-index:2;position:absolute}
+.tile.mas{background:var(--navy);border:0;cursor:pointer;font:inherit;width:100%;text-align:left}
+.tile.mas .e{font-family:var(--f-titulo);font-weight:900;font-size:26px}
+.ver-menos{display:flex;margin:14px auto 0}
+.asa{position:absolute;right:8px;top:54px;z-index:5;width:46px;height:46px;border-radius:14px;border:3px solid var(--navy);background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:24px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;padding:0}
+.asa .ic-svg{stroke-width:3.4}
+.asa:active{cursor:grabbing}
+.tw.arrastrando{z-index:10;transform:scale(1.05);opacity:.93}
+.tw.arrastrando .tile{box-shadow:0 20px 32px rgba(11,27,77,.38)}
+.tw.fuera .tile{opacity:.5;outline:4px dashed var(--navy);outline-offset:-4px}
+.tag-fuera{position:absolute;left:86px;top:52px;z-index:5;background:var(--navy);color:#fff;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px}
+.ctl-vis{margin:22px 0 -6px;background:#fff;border:3px solid var(--navy);border-radius:18px;padding:12px 14px;display:grid;gap:10px}
+.ctl-vis .t{font-weight:700;font-size:18px}
+.ctl-vis small{color:var(--tinta-2);font-size:14px;font-weight:400}
+.ctl-vis .fila-c{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.stepper{display:inline-flex;align-items:center;border:3px solid var(--navy);border-radius:14px;overflow:hidden;background:#fff}
+.stepper button{width:54px;height:50px;border:0;background:var(--amar);font-size:28px;font-weight:900;color:var(--navy)}
+.stepper b{min-width:78px;text-align:center;font-family:var(--f-titulo);font-size:20px}
+.iconos{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px;margin-top:6px}
+.iconos button{height:54px;border-radius:14px;border:2px solid var(--linea);background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:30px;padding:0}
+.iconos button:hover{border-color:var(--navy)}
+.iconos button[aria-pressed="true"]{border-color:var(--navy);background:var(--amar)}
+.vista-ic{color:var(--navy);font-size:34px}
+.cat-fila .vista-ic{color:#fff}
+.cat-fila .mover{display:flex;gap:6px}
+.cat-fila .mover button{min-width:46px;padding:0}
+.foto-fb{background:linear-gradient(150deg,color-mix(in srgb,var(--c) 80%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 68%,#000));color:#fff;font-size:50px}
+.foto-fb .ic-svg{stroke-width:1.6;filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}
+.f-cab .grande{width:96px;height:96px;border-radius:30px;background:rgba(255,255,255,.22);border:3px solid rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;font-size:58px;filter:none;margin-bottom:14px;box-shadow:0 6px 0 rgba(0,0,0,.18)}
+.f-cab .grande .ic-svg{stroke-width:1.6}
+
+
+/* ---------- vida: reflejos y animaciones ---------- */
+.tile{background:linear-gradient(180deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 48%),linear-gradient(150deg,color-mix(in srgb,var(--c) 80%,#fff) 0%,var(--c) 50%,color-mix(in srgb,var(--c) 70%,#000) 100%);transition:transform .22s cubic-bezier(.2,.9,.3,1.3),box-shadow .2s}
+.tile.mas{background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,0) 48%),var(--navy)}
+.tile .gl{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:inherit;z-index:2}
+.tile .gl::before{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:38%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.5),rgba(255,255,255,0));transform:translateX(-160%) skewX(-18deg);animation:barrido 6s ease-in-out infinite;animation-delay:calc(var(--i,0) * .7s + 1s)}
+@keyframes barrido{0%{transform:translateX(-160%) skewX(-18deg)}22%,100%{transform:translateX(420%) skewX(-18deg)}}
+.tile .e{animation:flota 4s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.6s)}
+.tile .e::after,.f-cab .grande::after{content:"";position:absolute;left:7px;top:5px;width:28px;height:12px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));transform:rotate(-24deg);pointer-events:none}
+.f-cab .grande{position:relative;animation:flota 4.5s ease-in-out infinite}
+.f-cab .grande::after{left:10px;top:8px;width:40px;height:16px}
+@keyframes flota{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-3deg)}}
+.tiles.entra .tw{animation:entra .6s cubic-bezier(.2,.9,.3,1.25) backwards;animation-delay:calc(var(--i,0) * 70ms)}
+@keyframes entra{from{opacity:0;transform:translateY(22px) scale(.92)}}
+.foto-fb{position:relative;overflow:hidden}
+.foto-fb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,0) 52%)}
+.brand svg{animation:flota 4s ease-in-out infinite}
+.estado.si i{animation:pulso 2.2s ease-out infinite}
+@keyframes pulso{0%{box-shadow:0 0 0 0 rgba(11,122,69,.45)}70%,100%{box-shadow:0 0 0 9px rgba(11,122,69,0)}}
+.card{transition:transform .18s,box-shadow .18s}
+@media(hover:hover){
+  .tile:hover{transform:translateY(-5px) rotate(-.6deg)}
+  .tile:hover .e{animation-duration:1.3s}
+  .tile:hover .gl::before{animation-duration:1.6s;animation-delay:0s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 10px 0 rgba(11,27,77,.2)}
+}
+.tile:active{transform:translateY(6px)}
+.tile .e .ic-gomeria,.f-cab .grande .ic-gomeria{animation:gira 14s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+.tile .e .ic-farmacia,.f-cab .grande .ic-farmacia{animation:latido 1.9s ease-in-out infinite}
+@keyframes latido{0%,100%{transform:scale(1)}14%{transform:scale(1.14)}28%{transform:scale(1)}42%{transform:scale(1.1)}70%{transform:scale(1)}}
+.tile .e .ic-mascota,.f-cab .grande .ic-mascota{animation:salto 2.4s ease-in-out infinite}
+@keyframes salto{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-3px) rotate(-5deg)}}
+.tile .e .ic-auto,.f-cab .grande .ic-auto{animation:marcha 1.6s ease-in-out infinite}
+@keyframes marcha{0%,100%{transform:translateX(-1.5px)}50%{transform:translateX(1.5px)}}
+.tile .e .ic-tijera,.f-cab .grande .ic-tijera{animation:tijereteo 2.2s ease-in-out infinite}
+@keyframes tijereteo{0%,40%,100%{transform:rotate(0)}20%{transform:rotate(-9deg)}60%{transform:rotate(9deg)}}
+.tile .e .ic-martillo,.f-cab .grande .ic-martillo{transform-origin:20% 85%;animation:golpe 2s ease-in-out infinite}
+@keyframes golpe{0%,55%,100%{transform:rotate(0)}70%{transform:rotate(-16deg)}80%{transform:rotate(4deg)}}
+.tile .vap,.f-cab .vap{transform-box:fill-box;animation:vapor 2.4s ease-in-out infinite}
+@keyframes vapor{0%{opacity:0;transform:translateY(3px)}40%{opacity:1}100%{opacity:0;transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){
+  .tile .gl::before,.tile .e,.tiles.entra .tw,.estado.si i,.brand svg,.f-cab .grande,.tile .e .ic-svg,.f-cab .grande .ic-svg,.vap{animation:none!important}
+  .tile,.card{transition:none}
+}
+
+@media(min-width:760px){
+  .tiles{grid-template-columns:repeat(4,1fr)}
+  .lista{grid-template-columns:1fr 1fr}
+  .velo{align-items:center}
+  .hoja{border-radius:24px}
+  .f-cuerpo{grid-template-columns:1fr 1fr;align-items:start}
+  .f-cuerpo .f-acc,.f-cuerpo .galeria{grid-column:1/-1}
+  .f-acc{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+}
+@media(prefers-reduced-motion:reduce){.esq{animation:none}.btn,.tile{transition:none}}
+</style>
+</head>
+<body>
+<noscript><p style="padding:24px;font-size:20px">Para usar el directorio necesitás activar JavaScript en tu navegador.</p></noscript>
+<div id="app"></div>
+<div class="velo" id="velo" role="dialog" aria-modal="true"><div class="hoja" id="hoja"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="fileImp" accept="application/json,.json" hidden>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   CONFIGURACIÓN — lo único que tenés que tocar para personalizar
+   ══════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  nombre: 'Directorio de comercios',
+  ciudad: 'Río Cuarto',
+  whatsappAdmin: '',      // solo números con código de país. Vacío = se oculta "Sumá tu comercio"
+  // ── Base de datos central (Supabase). Si están vacíos, funciona en MODO DE PRUEBA con datos de ejemplo.
+  supabaseUrl: '',        // https://xxxx.supabase.co
+  supabaseKey: '',        // clave "anon" (pública). NUNCA pongas acá la service_role.
+  adminEmail: '',         // el correo del usuario editor creado en Supabase. La "clave" es su contraseña.
+  // ── Solo MODO DE PRUEBA (sin Supabase): clave del editor. No es segura: cualquiera que vea el código la ve.
+  claveLocal: '1234'
+};
+
+const CATS_BASE = [
+  {id:'gomeria',nombre:'Gomerías',singular:'Gomería',icono:'🛞',color:'#C8420F',palabras:['cubierta','cubiertas','neumatico','neumaticos','pinchadura','pinchazo','rueda','auxilio','balanceo','alineacion']},
+  {id:'cafeteria',nombre:'Cafeterías',singular:'Cafetería',icono:'☕',color:'#7B4B2A',palabras:['cafe','desayuno','merienda','medialunas','tostado','bar']},
+  {id:'peluqueria',nombre:'Peluquerías',singular:'Peluquería',icono:'✂️',color:'#B3217F',palabras:['corte','pelo','barberia','barbero','tintura','peinado','color']},
+  {id:'farmacia',nombre:'Farmacias',singular:'Farmacia',icono:'💊',color:'#0B7F52',palabras:['remedio','remedios','medicamento','turno','24 horas','guardia']},
+  {id:'panaderia',nombre:'Panaderías',singular:'Panadería',icono:'🥖',color:'#9C5400',palabras:['pan','facturas','medialunas','tortas','confiteria']},
+  {id:'ferreteria',nombre:'Ferreterías',singular:'Ferretería',icono:'🔨',color:'#4F54B8',palabras:['herramientas','tornillos','pintura','cerrajeria','electricidad','plomeria']},
+  {id:'mecanico',nombre:'Mecánicos',singular:'Mecánico',icono:'🔧',color:'#1B63C2',palabras:['taller','auto','autos','service','frenos','aceite']},
+  {id:'veterinaria',nombre:'Veterinarias',singular:'Veterinaria',icono:'🐾',color:'#0C7F90',palabras:['mascota','mascotas','perro','gato','vacunas','alimento balanceado']}
+];
+const EMOJIS = ['🛞','🚗','🏍️','🚲','🔧','🔨','⚡','💡','🚿','🔑','☕','🍺','🍕','🍔','🥖','🍰','🍦','🍎','🥩','🛒','👕','👟','👜','💈','✂️','💅','💊','🏥','🦷','👓','🐾','🐶','🌱','💐','📚','🖨️','📱','💻','🎓','⚽','🏋️','🛏️','🧺','🧼','📦','🚚','🏦','💰','🎂','🍞','🧴','🏪'];
+const COLORES = ['#C8420F','#7B4B2A','#B3217F','#0B7F52','#9C5400','#4F54B8','#1B63C2','#0C7F90','#B3261E','#6B3FA0','#2F6B2F','#37474F'];
+const DIAS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const ORDEN = [1, 2, 3, 4, 5, 6, 0];
+
+/* ── DATOS DE EJEMPLO (inventados) — horarios: {0..6 (0 = domingo): [["08:00","13:00"],["16:00","20:00"]]} ── */
+const sem = (lv, sab, dom) => { const h = {}; for (let d = 1; d <= 5; d++) if (lv) h[d] = lv; if (sab) h[6] = sab; if (dom) h[0] = dom; return h; };
+const T24 = {0:[["00:00","24:00"]],1:[["00:00","24:00"]],2:[["00:00","24:00"]],3:[["00:00","24:00"]],4:[["00:00","24:00"]],5:[["00:00","24:00"]],6:[["00:00","24:00"]]};
+const PART = [["08:30","13:00"],["16:00","20:30"]];
+const DEMO = [
+  {id:1,slug:'gomeria-el-cruce-1',nombre:'Gomería El Cruce',categoria:'gomeria',descripcion:'Reparación de pinchaduras, balanceo y alineación. Auxilio en ruta dentro de la ciudad.',direccion:'Av. Sabattini 1200',barrio:'Centro',lat:-33.1205,lng:-64.3440,whatsapp:'5493580000001',telefono:'0358 000-0001',horarios:sem([["07:30","12:30"],["15:00","20:00"]],[["08:00","13:00"]],null),destacado:true},
+  {id:2,slug:'neumaticos-sur-2',nombre:'Neumáticos Sur',categoria:'gomeria',descripcion:'Venta de cubiertas nuevas y usadas, colocación y balanceo.',direccion:'Ruta 8 km 601',barrio:'Zona Sur',lat:-33.1480,lng:-64.3510,whatsapp:'5493580000002',telefono:'0358 000-0002',horarios:sem([["08:00","20:00"]],[["08:00","14:00"]],null)},
+  {id:3,slug:'gomeria-24-horas-don-raul-3',nombre:'Gomería 24 horas Don Raúl',categoria:'gomeria',descripcion:'Atención las 24 horas, todos los días. Pinchaduras y cambio de rueda.',direccion:'Av. Italia 540',barrio:'Banda Norte',lat:-33.1150,lng:-64.3380,whatsapp:'5493580000003',telefono:'0358 000-0003',horarios:T24},
+  {id:4,slug:'cafe-mostaza-4',nombre:'Café Mostaza',categoria:'cafeteria',descripcion:'Café de especialidad, tostados y pastelería casera. Wi-Fi libre.',direccion:'Constitución 480',barrio:'Centro',lat:-33.1238,lng:-64.3502,whatsapp:'5493580000004',telefono:'0358 000-0004',horarios:sem([["07:30","21:00"]],[["08:30","22:00"]],[["09:00","14:00"]]),web:'https://example.com',instagram:'cafemostaza',destacado:true},
+  {id:5,slug:'la-esquina-tostada-5',nombre:'La Esquina Tostada',categoria:'cafeteria',descripcion:'Desayunos y meriendas. Medialunas recién hechas.',direccion:'San Martín 1020',barrio:'Centro',lat:-33.1262,lng:-64.3475,whatsapp:'5493580000005',telefono:'0358 000-0005',horarios:sem([["07:00","20:00"]],[["07:30","20:00"]],null)},
+  {id:6,slug:'peluqueria-tijera-azul-6',nombre:'Peluquería Tijera Azul',categoria:'peluqueria',descripcion:'Corte, color y peinados. Se atiende con turno previo por WhatsApp.',direccion:'Belgrano 330',barrio:'Centro',lat:-33.1228,lng:-64.3520,whatsapp:'5493580000006',telefono:'0358 000-0006',horarios:sem(PART,[["09:00","14:00"]],null),instagram:'tijeraazul'},
+  {id:7,slug:'barberia-don-aldo-7',nombre:'Barbería Don Aldo',categoria:'peluqueria',icono:'💈',descripcion:'Corte clásico y arreglo de barba. Sin turno, por orden de llegada.',direccion:'Alberdi 710',barrio:'Alberdi',lat:-33.1301,lng:-64.3562,whatsapp:'5493580000007',telefono:'0358 000-0007',horarios:sem([["10:00","20:00"]],[["10:00","20:00"]],null)},
+  {id:8,slug:'farmacia-plaza-8',nombre:'Farmacia Plaza',categoria:'farmacia',descripcion:'Abierta las 24 horas. Perfumería y recetas magistrales.',direccion:'Plaza Roca 100',barrio:'Centro',lat:-33.1235,lng:-64.3490,whatsapp:'5493580000008',telefono:'0358 000-0008',horarios:T24},
+  {id:9,slug:'panaderia-la-espiga-9',nombre:'Panadería La Espiga',categoria:'panaderia',descripcion:'Pan artesanal, facturas y tortas por encargo.',direccion:'Mitre 890',barrio:'Banda Norte',lat:-33.1180,lng:-64.3455,whatsapp:'5493580000009',telefono:'0358 000-0009',horarios:sem([["06:30","13:00"],["17:00","21:00"]],[["06:30","13:00"],["17:00","21:00"]],[["07:00","13:00"]])},
+  {id:10,slug:'ferreteria-central-10',nombre:'Ferretería Central',categoria:'ferreteria',descripcion:'Herramientas, pinturas, electricidad y plomería. Corte de llaves.',direccion:'Rivadavia 640',barrio:'Centro',lat:-33.1250,lng:-64.3535,whatsapp:'5493580000010',telefono:'0358 000-0010',horarios:sem(PART,[["08:30","13:00"]],null)},
+  {id:11,slug:'taller-mecanico-rivas-11',nombre:'Taller Mecánico Rivas',categoria:'mecanico',descripcion:'Service completo, frenos, tren delantero y diagnóstico por computadora.',direccion:'Av. Santa Fe 2200',barrio:'Zona Norte',lat:-33.1100,lng:-64.3600,whatsapp:'5493580000011',telefono:'0358 000-0011',horarios:sem([["08:00","12:30"],["14:30","19:00"]],[["08:00","12:00"]],null)},
+  {id:12,slug:'veterinaria-patitas-12',nombre:'Veterinaria Patitas',categoria:'veterinaria',descripcion:'Consultas, vacunas y alimento balanceado. Urgencias por WhatsApp.',direccion:'Sarmiento 415',barrio:'Centro',lat:-33.1270,lng:-64.3510,whatsapp:'5493580000012',telefono:'0358 000-0012',horarios:sem([["09:00","13:00"],["16:00","20:00"]],[["09:00","13:00"]],null)},
+  {id:13,slug:'cafeteria-del-parque-13',nombre:'Cafetería del Parque',categoria:'cafeteria',descripcion:'Mesas al aire libre frente al parque. Menú del día al mediodía.',direccion:'Av. Costanera 50',barrio:'Costanera',lat:-33.1190,lng:-64.3330,whatsapp:'5493580000013',telefono:'0358 000-0013',horarios:sem([["08:00","23:00"]],[["08:00","01:00"]],[["08:00","23:00"]])}
+];
+
+/* ══════════════════════════════════════════════════════════════
+   UTILIDADES
+   ══════════════════════════════════════════════════════════════ */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+const digitos = s => String(s ?? '').replace(/\D/g, '');
+const slugify = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const emo = s => `<span class="emo" aria-hidden="true">${esc(s)}</span>`;
+
+/* ---------- biblioteca de íconos (trazo moderno, se colorean solos) ---------- */
+const ICONS = {
+  gomeria:'<circle class="f" cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="6.4"/><circle class="f" cx="12" cy="12" r="2.3"/><path d="M12 5.6v4.1M12 14.3v4.1M5.6 12h4.1M14.3 12h4.1"/><path d="M12 2.4v1.1M12 20.5v1.1M2.4 12h1.1M20.5 12h1.1M5.2 5.2l.8.8M18 18l.8.8M18.8 5.2 18 6M6 18l-.8.8" stroke-width="1.2"/>',
+  cafe:'<path class="f" d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10.5h1.5a2.5 2.5 0 0 1 0 5h-2"/><path d="M3 21.5h16"/><path class="vap" d="M8 3c-1 1.2 1 2 0 3.4M12.5 3c-1 1.2 1 2 0 3.4"/>',
+  tijera:'<circle class="f" cx="6" cy="6" r="3"/><circle class="f" cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/><circle cx="6" cy="6" r="1" stroke-width="1.2"/><circle cx="6" cy="18" r="1" stroke-width="1.2"/>',
+  farmacia:'<path class="f" d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/><path d="M12 9v6M9 12h6" stroke-width="1.4"/>',
+  pastilla:'<path class="f" d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/>',
+  pan:'<path class="f" d="M5 11c0-3 3-6 7-6s7 3 7 6c0 1-.6 1.8-1.5 2L17 19a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 7 19l-.5-6C5.6 12.8 5 12 5 11Z"/><path d="m9.5 9.3 1.1 2.2M13.2 8.8l1.1 2.2M10.5 15.5h3" stroke-width="1.4"/>',
+  martillo:'<path class="f" d="m14 5 5 5-2.5 2.5-5-5z"/><path d="M12.5 8.5 4 17l3 3 8.5-8.5"/><path d="m17 4 3 3"/><path d="m6.2 15.6 2.2 2.2" stroke-width="1.2"/>',
+  llave:'<path class="f" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  auto:'<path class="f" d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><path d="M5.2 10.5h10M10 7.2V10.5"/><circle class="f" cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle class="f" cx="17" cy="17" r="2"/>',
+  mascota:'<circle class="f" cx="11" cy="4" r="2"/><circle class="f" cx="18" cy="8" r="2"/><circle class="f" cx="20" cy="16" r="2"/><circle class="f" cx="4.5" cy="6" r="1.8"/><path class="f" d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/>',
+  tienda:'<path class="f" d="m3 9 1.5-5h15L21 9v1a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0z"/><path d="M5 12.5V20h14v-7.5"/><path d="M10 20v-5h4v5"/>',
+  comida:'<path class="f" d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+  carrito:'<circle class="f" cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+  ropa:'<path class="f" d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>',
+  libro:'<path class="f" d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
+  rayo:'<path class="f" d="M13 2 3 14h9l-1 8 10-12h-9z"/>',
+  casa:'<path class="f" d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/>',
+  corazon:'<path class="f" d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/>',
+  pesas:'<path class="f" d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/>',
+  celular:'<rect class="f" x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
+  notebook:'<rect class="f" x="4" y="5" width="16" height="11" rx="2"/><path d="M2 20h20"/>',
+  educacion:'<path class="f" d="M22 10 12 5 2 10l10 5z"/><path d="M6 12v5c3 2.5 9 2.5 12 0v-5"/>',
+  bici:'<circle class="f" cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 17.5V14l-3-3 4-3 2 3h2"/>',
+  camion:'<path class="f" d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+  torta:'<path class="f" d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/>',
+  brillo:'<path class="f" d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 3v4M17 5h4"/>',
+  planta:'<path class="f" d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  cerrajeria:'<circle class="f" cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.8-9.8M16 7l3 3M14 9l2 2"/>',
+  gota:'<path class="f" d="M12 22a7 7 0 0 0 7-7c0-4-7-13-7-13S5 11 5 15a7 7 0 0 0 7 7z"/>',
+  cama:'<path class="f" d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 17h20M6 10V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"/>',
+  banco:'<path class="f" d="M3 21h18M5 21V11M9 21V11M15 21V11M19 21V11M12 3 3 8h18z"/>',
+  paquete:'<path class="f" d="M12 3 3 7.5v9L12 21l9-4.5v-9z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/>',
+  impresora:'<path class="f" d="M7 9V3h10v6"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v7H7z"/>',
+  regalo:'<rect class="f" x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+  pelota:'<circle class="f" cx="12" cy="12" r="9"/><path d="m12 7 4 3-1.5 5h-5L8 10z"/><path d="M12 3v4M16 10l4-1M14.5 15l2.5 4M9.5 15 7 19M8 10 4 9"/>',
+  optica:'<path class="f" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  ubicacion:'<path class="f" d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>'
+};
+/* emojis que ya estaban cargados → se muestran con el ícono moderno equivalente */
+const LEGACY_RAW = {'🛞':'gomeria','🚗':'auto','🏍️':'auto','🚲':'bici','🔧':'llave','🔨':'martillo','⚡':'rayo','💡':'rayo','🚿':'gota','🔑':'cerrajeria','☕':'cafe','🍺':'comida','🍕':'comida','🍔':'comida','🥖':'pan','🍞':'pan','🍰':'torta','🎂':'torta','🍦':'torta','🍎':'comida','🥩':'comida','🛒':'carrito','👕':'ropa','👟':'ropa','👜':'ropa','💈':'tijera','✂️':'tijera','💅':'brillo','🧴':'brillo','🧼':'brillo','💊':'farmacia','🏥':'farmacia','🦷':'corazon','👓':'optica','🐾':'mascota','🐶':'mascota','🌱':'planta','💐':'planta','📚':'libro','🖨️':'impresora','📱':'celular','💻':'notebook','🎓':'educacion','⚽':'pelota','🏋️':'pesas','🛏️':'cama','🧺':'ropa','📦':'paquete','🚚':'camion','🏦':'banco','💰':'banco','🏪':'tienda','🏠':'casa'};
+const LEGACY = {}; Object.entries(LEGACY_RAW).forEach(([k, v]) => LEGACY[k.replace(/️/g, '')] = v);
+const iconoKey = v => { v = String(v || '').trim(); if (v.startsWith('i:')) return ICONS[v.slice(2)] ? v.slice(2) : ''; return LEGACY[v.replace(/️/g, '')] || ''; };
+const iconoHtml = v => { const k = iconoKey(v); return k ? `<svg class="ic-svg ic-${k}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg>` : `<span class="emo ic-emo" aria-hidden="true">${esc(String(v || '').trim() || '🏪')}</span>`; };
+const iconGrid = (target, actual) => { const k = iconoKey(actual); return `<div class="iconos" role="group" aria-label="Elegir ícono">${Object.keys(ICONS).map(n => `<button type="button" data-accion="emoji" data-target="${target}" data-e="i:${n}" aria-label="${n}" aria-pressed="${n === k}">${iconoHtml('i:' + n)}</button>`).join('')}</div>`; };
+function pintarIcono(id) {
+  const el = $('#' + id + '_v'), inp = $('#' + id); if (!el || !inp) return;
+  const val = inp.value.trim();
+  el.innerHTML = iconoHtml(val || (id === 'f_icono' ? catPorId($('#f_cat').value).icono : 'i:tienda'));
+}
+const UI = {
+  buscar:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  atras:'<path d="m15 5-7 7 7 7"/>',
+  inst:'<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>'
+};
+const ui = k => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${UI[k]}</svg>`;
+const ES_IOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const INSTALADA = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true || !!window.Capacitor;
+const remoto = () => !!(CONFIG.supabaseUrl && CONFIG.supabaseKey);
+
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('on'), 3600);
+}
+
+/* ---------- imágenes de Drive ---------- */
+function imgUrl(u) {
+  u = String(u || '').trim(); if (!u) return '';
+  const m = u.match(/drive\.google\.com\/file\/d\/([\w-]+)/) || u.match(/drive\.google\.com\/(?:open|uc|thumbnail)\?[^#]*?id=([\w-]+)/) || u.match(/docs\.google\.com\/uc\?[^#]*?id=([\w-]+)/);
+  return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1000` : u;
+}
+
+/* ---------- horarios ---------- */
+const toMin = s => { const [a, b] = s.split(':').map(Number); return a * 60 + b; };
+const fmt = m => String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+const rangos = (c, d) => (c.horarios && c.horarios[d]) || [];
+const es24 = c => c.horarios && [0,1,2,3,4,5,6].every(d => rangos(c, d).length === 1 && rangos(c, d)[0][0] === '00:00' && rangos(c, d)[0][1] === '24:00');
+
+function estado(c, now = new Date()) {
+  if (!c.horarios || !Object.keys(c.horarios).length) return {abierto: null, clase: 'nd', corto: 'Sin horario', detalle: '', texto: 'Horario no informado'};
+  if (es24(c)) return {abierto: true, clase: 'si', corto: 'Abierto', detalle: 'las 24 horas', texto: 'Abierto las 24 horas'};
+  const d = now.getDay(), m = now.getHours() * 60 + now.getMinutes();
+  const abre = (e) => e - m <= 60
+    ? {abierto: true, clase: 'pronto', corto: 'Cierra pronto', detalle: 'a las ' + fmt(e), texto: 'Cierra pronto, a las ' + fmt(e)}
+    : {abierto: true, clase: 'si', corto: 'Abierto', detalle: 'hasta las ' + fmt(e), texto: 'Abierto hasta las ' + fmt(e)};
+  for (const [a, b] of rangos(c, d)) {
+    const s = toMin(a); let e = toMin(b); if (e <= s) e += 1440;
+    if (m >= s && m < e) return abre(e);
+  }
+  for (const [a, b] of rangos(c, (d + 6) % 7)) {
+    const s = toMin(a), e = toMin(b);
+    if (e <= s && m < e) return abre(e);
+  }
+  for (let i = 0; i < 8; i++) {
+    const dd = (d + i) % 7;
+    const aperturas = rangos(c, dd).map(r => toMin(r[0])).sort((x, y) => x - y);
+    for (const s of aperturas) {
+      if (i > 0 || s > m) {
+        const cuando = (i === 0 ? 'hoy' : i === 1 ? 'mañana' : DIAS[dd].toLowerCase()) + ' ' + fmt(s);
+        return {abierto: false, clase: 'no', corto: 'Cerrado', detalle: 'abre ' + cuando, texto: 'Cerrado, abre ' + cuando};
+      }
+    }
+  }
+  return {abierto: false, clase: 'no', corto: 'Cerrado', detalle: '', texto: 'Cerrado'};
+}
+const pill = c => { const e = estado(c); return `<span class="estado ${e.clase}"><i aria-hidden="true"></i><b>${esc(e.corto)}</b>${e.detalle ? `<span>${esc(e.detalle)}</span>` : ''}</span>`; };
+function textoDia(c, d) {
+  const r = rangos(c, d);
+  if (!r.length) return 'Cerrado';
+  if (r.length === 1 && r[0][0] === '00:00' && r[0][1] === '24:00') return 'Las 24 horas';
+  return r.map(x => `${x[0]} a ${x[1]}`).join(' y ');
+}
+
+/* ---------- distancia ---------- */
+function km(a, b) {
+  const R = 6371, rad = x => x * Math.PI / 180;
+  const dLat = rad(b.lat - a.lat), dLng = rad(b.lng - a.lng);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+const fmtDist = k => k < 1 ? Math.round(k * 10) * 100 + ' m' : k.toFixed(1).replace('.', ',') + ' km';
+
+/* ══════════════════════════════════════════════════════════════
+   ESTADO, DATOS Y BASE
+   ══════════════════════════════════════════════════════════════ */
+const CACHE_KEY = 'directorio_cache_v2', LOCAL_KEY = 'directorio_local_v2';
+const S = {raw: [], cats: CATS_BASE.slice(), data: [], demo: true, offline: false, error: false, cargando: true,
+  q: '', abiertos: false, pos: null, cat: '', navegoDentro: false, editor: false, token: null, nVis: 0, verTodas: false};
+const AJ_ID = '_ajustes'; // fila especial en «categorias» donde se guarda cuántos íconos se ven (0 = todos)
+
+function catPorId(id) {
+  return S.cats.find(c => c.id === id) || {id, nombre: id, singular: id, icono: '🏪', color: '#37474F', palabras: []};
+}
+const iconoDe = c => c.icono || catPorId(c.categoria).icono;
+const visibles = () => S.data.filter(c => S.editor || c.activo);
+
+function normalizar(r) {
+  let h = r.horarios; if (typeof h === 'string') { try { h = JSON.parse(h); } catch (e) { h = null; } }
+  let im = r.imagenes; if (typeof im === 'string') { try { im = JSON.parse(im); } catch (e) { im = im.split(/\n|,/); } }
+  const c = {...r, horarios: h || {}, imagenes: (Array.isArray(im) ? im : []).map(x => String(x).trim()).filter(Boolean),
+    lat: r.lat == null || r.lat === '' ? null : Number(r.lat), lng: r.lng == null || r.lng === '' ? null : Number(r.lng),
+    activo: r.activo !== false, categoria: r.categoria || 'otros'};
+  c.slug = r.slug || slugify(r.nombre) + '-' + r.id;
+  const cat = catPorId(c.categoria);
+  c._h = {nombre: norm(c.nombre), cat: norm([cat.nombre, cat.singular, ...(cat.palabras || [])].join(' ')), resto: norm([c.descripcion, c.direccion, c.barrio].join(' '))};
+  return c;
+}
+function aplicar(r) {
+  S.raw = r.rows || [];
+  const todas = r.cats || [];
+  const aj = todas.find(k => k.id === AJ_ID);
+  S.nVis = aj ? (Number(aj.orden) || 0) : (Number(r.nVis) || 0);
+  const cats = todas.filter(k => k.id !== AJ_ID).map(k => ({...k, palabras: Array.isArray(k.palabras) ? k.palabras : []}));
+  cats.sort((a, b) => (a.orden ?? 1e9) - (b.orden ?? 1e9));
+  S.cats = cats.length ? cats : CATS_BASE.slice();
+  S.data = S.raw.map(normalizar);
+  S.demo = !!r.demo; S.offline = !!r.offline; S.error = !!r.error;
+}
+
+/* ---------- API Supabase ---------- */
+const API = {
+  async req(method, path, body, extra) {
+    const r = await fetch(CONFIG.supabaseUrl.replace(/\/$/, '') + '/rest/v1/' + path, {method,
+      headers: {apikey: CONFIG.supabaseKey, 'Content-Type': 'application/json', Authorization: 'Bearer ' + (S.token || CONFIG.supabaseKey), ...(extra || {})},
+      body: body ? JSON.stringify(body) : undefined});
+    if (r.status === 401 || r.status === 403) throw new Error('SIN_PERMISO');
+    if (!r.ok) throw new Error((await r.text()) || 'Error ' + r.status);
+    return r.status === 204 ? null : r.json().catch(() => null);
+  }
+};
+async function loginSupabase(email, clave) {
+  const r = await fetch(CONFIG.supabaseUrl.replace(/\/$/, '') + '/auth/v1/token?grant_type=password', {method: 'POST',
+    headers: {apikey: CONFIG.supabaseKey, 'Content-Type': 'application/json'}, body: JSON.stringify({email, password: clave})});
+  if (!r.ok) throw new Error('CLAVE');
+  const j = await r.json();
+  S.token = j.access_token;
+  try { sessionStorage.setItem('dir_tok', j.access_token); sessionStorage.setItem('dir_exp', String(Date.now() + (j.expires_in || 3600) * 1000 - 30000)); } catch (e) {}
+}
+function limpiarSesion() { S.token = null; S.editor = false; try { sessionStorage.removeItem('dir_tok'); sessionStorage.removeItem('dir_exp'); } catch (e) {} }
+
+const leerJSON = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
+async function cargarDatos() {
+  if (remoto()) {
+    try {
+      const filtro = S.token ? '' : '&activo=eq.true';
+      const [rows, cats] = await Promise.all([API.req('GET', 'comercios?select=*&order=nombre' + filtro), API.req('GET', 'categorias?select=*&order=orden').catch(() => null)]);
+      if (!S.token) try { localStorage.setItem(CACHE_KEY, JSON.stringify({rows, cats})); } catch (e) {}
+      return {rows, cats, demo: false};
+    } catch (e) {
+      if (e.message === 'SIN_PERMISO' && S.token) { limpiarSesion(); return cargarDatos(); }
+      const c = leerJSON(CACHE_KEY);
+      if (c && c.rows) return {rows: c.rows, cats: c.cats, demo: false, offline: true};
+      return {rows: [], demo: false, error: true};
+    }
+  }
+  const l = leerJSON(LOCAL_KEY);
+  if (l && l.rows) return {rows: l.rows, cats: l.cats, demo: true, nVis: l.nVis};
+  return {rows: DEMO, cats: CATS_BASE, demo: true};
+}
+async function recargar() { aplicar(await cargarDatos()); }
+function persistirLocal() {
+  try { localStorage.setItem(LOCAL_KEY, JSON.stringify({rows: S.raw, cats: S.cats, nVis: S.nVis})); }
+  catch (e) { toast('No se pudo guardar en este navegador. Descargá una copia desde "Copia".'); }
+  S.data = S.raw.map(normalizar);
+}
+
+/* ---------- altas, cambios y bajas ---------- */
+async function guardarComercio(campos, id) {
+  if (remoto()) {
+    let res;
+    if (id) res = await API.req('PATCH', 'comercios?id=eq.' + encodeURIComponent(id), campos, {Prefer: 'return=representation'});
+    else res = await API.req('POST', 'comercios', {...campos, slug: slugify(campos.nombre) + '-' + Math.random().toString(36).slice(2, 6)}, {Prefer: 'return=representation'});
+    if (!res || !res.length) throw new Error('SIN_PERMISO');
+    await recargar();
+  } else if (id) {
+    const i = S.raw.findIndex(x => String(x.id) === String(id));
+    if (i < 0) throw new Error('No encontramos ese comercio.');
+    S.raw[i] = {...S.raw[i], ...campos}; persistirLocal();
+  } else {
+    const nid = Date.now();
+    S.raw.push({...campos, id: nid, slug: slugify(campos.nombre) + '-' + nid}); persistirLocal();
+  }
+}
+async function borrarComercio(id) {
+  if (remoto()) { await API.req('DELETE', 'comercios?id=eq.' + encodeURIComponent(id), null, {Prefer: 'return=representation'}); await recargar(); }
+  else { S.raw = S.raw.filter(x => String(x.id) !== String(id)); persistirLocal(); }
+}
+async function guardarCategoria(k, esNueva) {
+  if (remoto()) {
+    const res = await API.req('POST', 'categorias', k, {Prefer: 'resolution=merge-duplicates,return=representation'});
+    if (!res || !res.length) throw new Error('SIN_PERMISO');
+    await recargar();
+  } else {
+    const i = S.cats.findIndex(x => x.id === k.id);
+    if (i >= 0) S.cats[i] = {...S.cats[i], ...k}; else S.cats.push(k);
+    persistirLocal();
+  }
+}
+async function borrarCategoria(id) {
+  if (S.raw.some(r => r.categoria === id)) throw new Error('Esta categoría tiene comercios. Cambiales la categoría antes de borrarla.');
+  if (remoto()) { await API.req('DELETE', 'categorias?id=eq.' + encodeURIComponent(id), null, {Prefer: 'return=representation'}); await recargar(); }
+  else { S.cats = S.cats.filter(x => x.id !== id); persistirLocal(); }
+}
+
+async function guardarOrden(ids) {
+  const mapa = new Map(S.cats.map(k => [k.id, k]));
+  const nuevo = ids.filter(id => mapa.has(id)).map(id => mapa.get(id));
+  S.cats.forEach(k => { if (!ids.includes(k.id)) nuevo.push(k); });
+  nuevo.forEach((k, i) => k.orden = i + 1);
+  S.cats = nuevo;
+  if (remoto()) {
+    const filas = nuevo.map(k => ({id: k.id, nombre: k.nombre, singular: k.singular, icono: k.icono, color: k.color, palabras: k.palabras || [], orden: k.orden}));
+    const res = await API.req('POST', 'categorias', filas, {Prefer: 'resolution=merge-duplicates,return=representation'});
+    if (!res || !res.length) throw new Error('SIN_PERMISO');
+  } else persistirLocal();
+}
+async function guardarNVis(n) {
+  if (remoto()) {
+    const res = await API.req('POST', 'categorias', {id: AJ_ID, nombre: 'Ajustes', singular: 'Ajustes', icono: '', color: '#000000', palabras: [], orden: n}, {Prefer: 'resolution=merge-duplicates,return=representation'});
+    if (!res || !res.length) throw new Error('SIN_PERMISO');
+  } else persistirLocal();
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BÚSQUEDA
+   ══════════════════════════════════════════════════════════════ */
+const tokens = q => norm(q).split(/\s+/).filter(Boolean).map(t => t.length > 3 && t.endsWith('s') ? t.slice(0, -1) : t);
+function puntaje(c, toks) {
+  let s = 0;
+  for (const t of toks) {
+    if (c._h.nombre.includes(t)) s += 3; else if (c._h.cat.includes(t)) s += 2; else if (c._h.resto.includes(t)) s += 1; else return 0;
+  }
+  return s;
+}
+function resultados() {
+  const toks = tokens(S.q);
+  let lista = visibles().map(c => ({c, p: toks.length ? puntaje(c, toks) : 1, d: (S.pos && c.lat != null) ? km(S.pos, c) : null})).filter(x => x.p > 0);
+  if (S.cat) lista = lista.filter(x => x.c.categoria === S.cat);
+  if (S.abiertos) lista = lista.filter(x => estado(x.c).abierto === true);
+  const rank = x => { const a = estado(x.c).abierto; return a === true ? 0 : a === null ? 1 : 2; };
+  lista.sort((a, b) => {
+    if (toks.length && b.p !== a.p) return b.p - a.p;
+    if (S.pos && a.d != null && b.d != null) return a.d - b.d;
+    return rank(a) - rank(b) || (b.c.destacado ? 1 : 0) - (a.c.destacado ? 1 : 0) || a.c.nombre.localeCompare(b.c.nombre, 'es');
+  });
+  return lista;
+}
+
+/* ---------- enlaces ---------- */
+const normWa = s => { let d = digitos(s).replace(/^0+/, ''); if (!d) return ''; return d.startsWith('54') ? d : '549' + d; };
+const urlWa = c => c.whatsapp ? `https://wa.me/${digitos(c.whatsapp)}?text=${encodeURIComponent('Hola, te encontré en ' + CONFIG.nombre + '. ')}` : '';
+const urlTel = c => { const t = String(c.telefono || ''); const n = digitos(t || c.whatsapp); return n ? 'tel:' + ((t.trim().startsWith('+') || !t) ? '+' : '') + n : ''; };
+const urlMapa = c => c.lat != null ? `https://www.google.com/maps/dir/?api=1&destination=${c.lat},${c.lng}` : (c.direccion ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.direccion + ' ' + CONFIG.ciudad)}` : '');
+const urlApple = c => c.lat != null ? `https://maps.apple.com/?daddr=${c.lat},${c.lng}&q=${encodeURIComponent(c.nombre)}` : '';
+const urlIg = c => 'https://instagram.com/' + String(c.instagram).replace(/^@/, '');
+const EXT = 'target="_blank" rel="noopener"';
+const btn = (href, cls, e, t, extra = '') => href ? `<a class="btn ${cls}" href="${esc(href)}" ${extra}>${emo(e)}${t}</a>` : `<span class="btn ${cls}" aria-disabled="true">${emo(e)}${t}</span>`;
+
+/* ---------- voz ---------- */
+function hablar(txt) {
+  if (!('speechSynthesis' in window)) { toast('Tu dispositivo no puede leer en voz alta.'); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(txt), vs = speechSynthesis.getVoices();
+  u.lang = 'es-AR'; u.rate = .95;
+  const v = vs.find(x => /^es[-_]AR/i.test(x.lang)) || vs.find(x => /^es/i.test(x.lang)); if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+const textoVoz = c => { const e = estado(c); return [c.nombre, catPorId(c.categoria).singular, e.corto + ' ' + e.detalle, c.direccion].filter(Boolean).join('. ') + '.'; };
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+/* ══════════════════════════════════════════════════════════════
+   VISTAS
+   ══════════════════════════════════════════════════════════════ */
+function ruta() { const p = location.hash.replace(/^#\/?/, '').split('/'); return {t: p[0] || '', id: decodeURIComponent(p.slice(1).join('/') || '')}; }
+
+const barra = () => !S.editor ? '' : `<div class="barra-ed" role="region" aria-label="Modo editor"><div class="wrap">
+  <b>✏️ Modo editor</b><span class="chico">${remoto() ? 'Los cambios se guardan en la base de datos.' : 'Modo de prueba: se guarda solo en este dispositivo.'}</span>
+  <div class="bt"><button class="am" data-accion="nuevo" type="button">➕ Agregar</button><button data-accion="cats" type="button">🏷️ Categorías</button>
+  ${remoto() ? '' : '<button data-accion="exportar" type="button">⬇️ Copia</button><button data-accion="importar" type="button">⬆️ Cargar</button>'}
+  <button data-accion="salir" type="button">Salir</button></div></div></div>`;
+
+const pie = () => `<footer class="pie"><div class="wrap"><span>${esc(CONFIG.nombre)} · ${esc(CONFIG.ciudad)}</span>
+  ${CONFIG.whatsappAdmin ? `<a href="https://wa.me/${digitos(CONFIG.whatsappAdmin)}?text=${encodeURIComponent('Hola, quiero sumar mi comercio a ' + CONFIG.nombre + '.')}" ${EXT}>Sumá tu comercio</a>` : ''}
+  ${S.editor ? '' : '<button class="link" type="button" data-accion="login">🔒 Editar</button>'}</div></footer>`;
+
+const hero = () => `${barra()}
+<header class="hero"><div class="wrap">
+  <div class="top">
+    <a class="brand" href="#/" aria-label="${esc(CONFIG.nombre)}, ir al inicio">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0B1B4D"/><path d="M32 10c-9 0-16 7-16 16 0 11 16 28 16 28s16-17 16-28c0-9-7-16-16-16z" fill="#FFD21F"/><circle cx="32" cy="26" r="6" fill="#0B1B4D"/></svg>
+      <span>${esc(CONFIG.nombre)}<small>${esc(CONFIG.ciudad)}</small></span></a>
+    ${INSTALADA ? '' : `<button class="btn-inst" data-accion="instalar" type="button">${ui('inst')}Instalar</button>`}
+  </div>
+  <h1>¿Qué buscás?</h1>
+  <div class="busq ${S.q ? 'lleno' : ''}" id="busq">
+    ${ui('buscar')}<label class="sr" for="q">Buscar comercios</label>
+    <input id="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" placeholder="Gomería, café, peluquería…" value="${esc(S.q)}">
+    <button class="ic limpiar" type="button" data-accion="limpiar" aria-label="Borrar búsqueda">${ui('x')}</button>
+    <button class="ic ${SR ? 'on' : ''}" type="button" data-accion="mic" aria-label="Buscar hablando">${emo('🎤')}</button>
+  </div>
+  <div class="chips">
+    <button class="chip" id="chipCerca" type="button" data-accion="cerca" aria-pressed="${!!S.pos}">${emo('📍')}Cerca de mí</button>
+    <button class="chip" id="chipAbierto" type="button" data-accion="abiertos" aria-pressed="${S.abiertos}">${emo('🟢')}Abierto ahora</button>
+  </div>
+</div></header>
+${S.demo ? `<div class="aviso"><div class="wrap">${emo('ℹ️')}<span>Modo de prueba con comercios de ejemplo. Los teléfonos no son reales.</span></div></div>` : ''}
+${S.offline ? `<div class="aviso"><div class="wrap">${emo('📴')}<span>Sin conexión. Mostramos lo último guardado: horarios y teléfonos pueden haber cambiado.</span></div></div>` : ''}`;
+
+const GRIP = '<svg class="ic-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01"/></svg>';
+function tilesHtml() {
+  const cuenta = {}; visibles().forEach(c => cuenta[c.categoria] = (cuenta[c.categoria] || 0) + 1);
+  const ids = [...new Set([...S.cats.map(c => c.id), ...Object.keys(cuenta)])].filter(id => cuenta[id] || S.editor);
+  const total = ids.length, lim = (S.nVis > 0 && S.nVis < total) ? S.nVis : 0;
+  let mostrar = ids, restan = 0;
+  if (!S.editor && lim && !S.verTodas) {
+    mostrar = ids.slice(0, lim);
+    if (S.cat && ids.includes(S.cat) && !mostrar.includes(S.cat)) mostrar.push(S.cat);
+    restan = total - mostrar.length;
+  }
+  const tile = (id, i) => {
+    const c = catPorId(id), sel = S.cat === id, fuera = S.editor && lim && i >= lim;
+    const a = `<a class="tile" style="--c:${esc(c.color)};--i:${i}" href="${sel ? '#/' : '#/categoria/' + encodeURIComponent(id)}" ${sel ? 'aria-current="true"' : ''}>
+      <span class="gl" aria-hidden="true"></span><span class="n" aria-label="${cuenta[id] || 0} lugares">${cuenta[id] || 0}</span><span class="e" aria-hidden="true">${iconoHtml(c.icono)}</span><b>${esc(c.nombre)}</b></a>`;
+    if (!S.editor) return `<div class="tw" style="--i:${i}">${a}</div>`;
+    return `<div class="tw ${fuera ? 'fuera' : ''}" data-id="${esc(id)}" style="--i:${i}">${a}${fuera ? '<span class="tag-fuera" title="Solo se ve al tocar «Ver todas»">Oculta</span>' : ''}<button class="asa" type="button" data-asa="${esc(id)}" aria-label="Mover ${esc(c.nombre)}. Arrastralo o usá las flechas del teclado.">${GRIP}</button></div>`;
+  };
+  const ent = !S._anim; if (ent) setTimeout(() => S._anim = true, 1500);
+  const ctl = S.editor ? `<div class="ctl-vis"><span class="t">Íconos visibles en el inicio <small>(lo ven todos)</small></span>
+    <div class="fila-c"><div class="stepper"><button type="button" data-accion="vis-menos" aria-label="Mostrar menos íconos">−</button><b aria-live="polite">${lim || 'Todos'}</b><button type="button" data-accion="vis-mas" aria-label="Mostrar más íconos">+</button></div>
+    <small>Arrastrá el botón ⠿ de cada ícono para cambiar el orden. Los que no entran se ven con «Ver todas».</small></div></div>` : '';
+  const mas = restan ? `<div class="tw"><button class="tile mas" type="button" style="--c:#0B1B4D" data-accion="ver-mas"><span class="n">${restan}</span><span class="e">+${restan}</span><b>Ver todas</b></button></div>` : '';
+  const menos = (!S.editor && lim && S.verTodas) ? '<button class="btn ver-menos" type="button" data-accion="ver-menos">Ver menos</button>' : '';
+  return ctl + `<nav class="tiles ${ent ? 'entra' : ''}" id="tilesNav" data-total="${total}" aria-label="Categorías">${mostrar.map(tile).join('')}${mas}</nav>` + menos;
+}
+function mediaHtml(c) {
+  const cat = catPorId(c.categoria), ic = iconoDe(c), u = imgUrl(c.imagenes[0]);
+  return u ? `<img class="foto" src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-fb="${esc(ic)}" data-color="${esc(cat.color)}">`
+           : `<span class="foto-fb" style="--c:${esc(cat.color)}">${iconoHtml(ic)}</span>`;
+}
+function cardHtml({c, d}) {
+  const meta = [c.barrio, d != null ? fmtDist(d) : ''].filter(Boolean).map(esc).join(' · ');
+  return `<article class="card ${c.activo ? '' : 'oculto'}">
+    <a class="card-link" href="#/comercio/${encodeURIComponent(c.slug)}">
+      <div class="media">${mediaHtml(c)}</div>
+      <div class="info">${c.activo ? '' : '<span class="tag-oculto">👁️ Oculto al público</span>'}<h3>${esc(c.nombre)}</h3>${pill(c)}${meta ? `<div class="meta">${emo('📍')}${meta}</div>` : ''}</div>
+    </a>
+    <button class="voz" type="button" data-accion="escuchar" data-id="${esc(c.id)}" aria-label="Escuchar sobre ${esc(c.nombre)}">${emo('🔊')}</button>
+    <div class="acciones">${btn(urlWa(c), 'wa', '💬', 'WhatsApp', EXT)}${btn(urlTel(c), 'tel', '📞', 'Llamar')}</div>
+    ${S.editor ? `<button class="btn editar" type="button" data-accion="editar" data-id="${esc(c.id)}">${emo('✏️')}Editar</button>` : ''}
+  </article>`;
+}
+function vacioHtml() {
+  if (S.error) return `<div class="vacio"><span class="grande emo">📡</span><h3>No pudimos cargar los comercios</h3><p>Revisá tu conexión a internet e intentá de nuevo.</p><div class="fila"><button class="btn pri" type="button" data-accion="reintentar">Reintentar</button></div></div>`;
+  const hayFiltros = S.q || S.cat || S.abiertos;
+  const wa = CONFIG.whatsappAdmin ? `<a class="btn am" href="https://wa.me/${digitos(CONFIG.whatsappAdmin)}?text=${encodeURIComponent('Hola, quiero sumar un comercio a ' + CONFIG.nombre + '.')}" ${EXT}>Sumar un comercio</a>` : '';
+  return `<div class="vacio"><span class="grande emo">🔍</span><h3>${S.q ? 'No encontramos «' + esc(S.q) + '»' : 'No hay lugares con estos filtros'}</h3>
+    <p>${S.abiertos ? 'Probá sacar «Abierto ahora» o buscar con otra palabra.' : 'Probá con otra palabra o elegí una categoría.'}</p>
+    <div class="fila">${hayFiltros ? '<button class="btn pri" type="button" data-accion="reset">Ver todos</button>' : ''}${wa}</div></div>`;
+}
+function resultadosHtml() {
+  if (S.cargando) return '<div class="lista"><div class="esq"></div><div class="esq"></div><div class="esq"></div></div>';
+  const r = resultados(), cat = S.cat ? catPorId(S.cat) : null;
+  const titulo = S.q ? `«${esc(S.q)}»` : cat ? esc(cat.nombre) : 'Todos los lugares';
+  return `<div class="cab-res"><h2>${titulo}</h2><p aria-live="polite">${r.length} ${r.length === 1 ? 'lugar' : 'lugares'} · ${S.pos ? 'los más cercanos primero' : 'los abiertos primero'}</p></div>` +
+    (r.length ? `<div class="lista">${r.map(cardHtml).join('')}</div>` : vacioHtml());
+}
+function vistaInicio(r) {
+  S.cat = r.t === 'categoria' ? r.id : '';
+  const cat = S.cat ? catPorId(S.cat) : null;
+  document.title = cat ? `${cat.nombre} en ${CONFIG.ciudad} · ${CONFIG.nombre}` : `${CONFIG.nombre} · ${CONFIG.ciudad}`;
+  $('#app').innerHTML = hero() + `<main class="wrap"><div id="zonaTiles">${S.cargando || S.q ? '' : tilesHtml()}</div><div id="zonaRes">${resultadosHtml()}</div></main>` + pie();
+}
+function refrescarResultados() {
+  $('#zonaTiles').innerHTML = (S.cargando || S.q) ? '' : tilesHtml();
+  $('#zonaRes').innerHTML = resultadosHtml();
+  $('#busq').classList.toggle('lleno', !!S.q);
+  $('#chipCerca').setAttribute('aria-pressed', !!S.pos);
+  $('#chipAbierto').setAttribute('aria-pressed', S.abiertos);
+}
+
+function vistaFicha(slug) {
+  const volver = `<button class="volver" data-accion="volver" type="button">${ui('atras')}Volver</button>`;
+  if (S.cargando) { $('#app').innerHTML = `<div class="f-cab"><div class="wrap">${volver}</div></div><div class="wrap" style="padding-top:20px"><div class="esq"></div></div>`; return; }
+  const c = S.data.find(x => x.slug === slug && (S.editor || x.activo));
+  if (!c) {
+    document.title = 'Comercio no encontrado · ' + CONFIG.nombre;
+    $('#app').innerHTML = barra() + `<div class="f-cab"><div class="wrap">${volver}<h1>No encontramos este lugar</h1></div></div>
+      <main class="wrap" style="padding-top:22px"><div class="vacio"><span class="grande emo">🤷</span><h3>Puede que ya no esté publicado</h3><p>El enlace está incompleto o el comercio fue retirado.</p><div class="fila"><a class="btn pri" href="#/">Buscar otro lugar</a></div></div></main>${pie()}`;
+    return;
+  }
+  const cat = catPorId(c.categoria), hoy = new Date().getDay();
+  document.title = `${c.nombre} · ${cat.singular} en ${CONFIG.ciudad}`;
+  const dist = (S.pos && c.lat != null) ? fmtDist(km(S.pos, c)) : '';
+  const tieneH = Object.keys(c.horarios || {}).length > 0;
+  const tira = ORDEN.map(d => { const on = rangos(c, d).length > 0; return `<div class="dia ${on ? 'on' : ''} ${d === hoy ? 'hoy' : ''}" title="${DIAS[d]}"><b>${DIAS[d].slice(0, 2)}</b><span aria-hidden="true">${on ? '✓' : '✕'}</span></div>`; }).join('');
+  const horas = tieneH ? `<div class="tira" aria-hidden="true">${tira}</div><table class="horas">${ORDEN.map(d => `<tr class="${d === hoy ? 'hoy' : ''}"><td>${DIAS[d]}</td><td>${esc(textoDia(c, d))}</td></tr>`).join('')}</table><p class="nota">Los horarios pueden cambiar en feriados. Ante la duda, escribí por WhatsApp.</p>` : '<p>Este lugar todavía no informó sus horarios.</p>';
+  const filas = [];
+  if (c.direccion) filas.push(`<div class="fila-i">${emo('📍')}<div>${esc(c.direccion)}${c.barrio ? ', ' + esc(c.barrio) : ''}${dist ? `<div class="meta">A ${dist} de donde estás</div>` : ''}</div></div>`);
+  if (c.telefono) filas.push(`<div class="fila-i">${emo('📞')}<a href="${esc(urlTel(c))}">${esc(c.telefono)}</a></div>`);
+  if (c.web) filas.push(`<div class="fila-i">${emo('🌐')}<a href="${esc(c.web)}" ${EXT}>${esc(String(c.web).replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a></div>`);
+  if (c.instagram) filas.push(`<div class="fila-i">${emo('📷')}<a href="${esc(urlIg(c))}" ${EXT}>@${esc(String(c.instagram).replace(/^@/, ''))}</a></div>`);
+  const nFotos = c.imagenes.map(imgUrl).filter(Boolean).length;
+  const fotos = c.imagenes.map(imgUrl).filter(Boolean).map(u => `<img src="${esc(u)}" alt="Foto de ${esc(c.nombre)}" loading="lazy" referrerpolicy="no-referrer" data-quitar>`).join('');
+  $('#app').innerHTML = `${barra()}
+  <header class="f-cab" style="--c:${esc(cat.color)}"><div class="wrap">${volver}
+    ${fotos ? `<div class="portada ${nFotos > 1 ? 'multi' : ''}" aria-label="Fotos de ${esc(c.nombre)}">${fotos}</div>` : `<span class="grande" aria-hidden="true">${iconoHtml(iconoDe(c))}</span>`}
+    ${c.activo ? '' : '<span class="tag-oculto">👁️ Oculto al público</span>'}
+    <h1>${esc(c.nombre)}</h1>
+    <div class="meta"><span class="ic-meta">${iconoHtml(cat.icono)}</span><span>${esc(cat.singular)}${c.barrio ? ' · ' + esc(c.barrio) : ''}</span></div>
+    ${pill(c)}
+  </div></header>
+  ${S.demo ? `<div class="aviso"><div class="wrap">${emo('ℹ️')}<span>Comercio de ejemplo: los datos no son reales.</span></div></div>` : ''}
+  <main class="wrap f-cuerpo">
+    <div class="f-acc">
+      ${btn(urlWa(c), 'wa', '💬', 'Escribir por WhatsApp', EXT)}
+      ${btn(urlTel(c), 'tel', '📞', 'Llamar')}
+      ${btn(urlMapa(c), '', '🗺️', 'Cómo llegar', EXT)}
+      ${ES_IOS && urlApple(c) ? btn(urlApple(c), '', '🍎', 'Abrir en Apple Maps', EXT) : ''}
+      <button class="btn am" type="button" data-accion="escuchar" data-id="${esc(c.id)}">${emo('🔊')}Escuchar</button>
+      <button class="btn" type="button" data-accion="compartir" data-id="${esc(c.id)}">${emo('📤')}Compartir</button>
+      ${S.editor ? `<button class="btn pri" type="button" data-accion="editar" data-id="${esc(c.id)}">${emo('✏️')}Editar este lugar</button>` : ''}
+    </div>
+    <div>
+      ${c.descripcion ? `<section class="bloque" style="margin-bottom:20px"><h2>${emo('💬')}Qué hace</h2><p>${esc(c.descripcion)}</p></section>` : ''}
+      ${filas.length ? `<section class="bloque"><h2>${emo('📍')}Dónde y cómo</h2>${filas.join('')}</section>` : ''}
+    </div>
+    <section class="bloque"><h2>${emo('🕒')}Horarios</h2>${horas}</section>
+  </main>${pie()}`;
+  document.querySelectorAll('script[data-ld]').forEach(n => n.remove());
+  if (!S.demo && c.activo) {
+    const ld = {'@context': 'https://schema.org', '@type': 'LocalBusiness', name: c.nombre, description: c.descripcion || undefined, telephone: c.telefono || undefined, url: c.web || undefined,
+      address: c.direccion ? {'@type': 'PostalAddress', streetAddress: c.direccion, addressLocality: CONFIG.ciudad} : undefined,
+      geo: c.lat != null ? {'@type': 'GeoCoordinates', latitude: c.lat, longitude: c.lng} : undefined};
+    const s = document.createElement('script'); s.type = 'application/ld+json'; s.dataset.ld = '1'; s.textContent = JSON.stringify(ld); document.head.appendChild(s);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   VENTANAS (instalar, entrar, formularios del editor)
+   ══════════════════════════════════════════════════════════════ */
+function abrirModal(html, {grande = false, fijo = false} = {}) {
+  $('#hoja').className = 'hoja' + (grande ? ' grande' : ''); $('#hoja').innerHTML = html;
+  $('#velo').dataset.fijo = fijo ? '1' : ''; $('#velo').classList.add('abierto'); $('#hoja').scrollTop = 0;
+  const f = $('#hoja input:not([type=hidden]),#hoja .btn'); if (f) f.focus();
+}
+const cerrarModal = () => $('#velo').classList.remove('abierto');
+
+function abrirInstalar() {
+  const ios = `<h3>En iPhone</h3><ol><li>Abrí esta página en <b>Safari</b>.</li><li>Tocá <b>Compartir</b> (el cuadrado con la flecha hacia arriba).</li><li>Elegí <b>Agregar a pantalla de inicio</b>.</li><li>Tocá <b>Agregar</b>.</li></ol>`;
+  const and = `<h3>En Android</h3><ol><li>Abrí esta página en <b>Chrome</b>.</li><li>Tocá el menú <b>⋮</b> arriba a la derecha.</li><li>Elegí <b>Instalar aplicación</b> o <b>Agregar a pantalla de inicio</b>.</li></ol><p class="nota">El nombre de la opción cambia según el navegador.</p>`;
+  abrirModal(`<h2>${emo('📲')} Tenelo a mano</h2><p class="sub">Agregá un acceso directo en tu pantalla de inicio.</p>${ES_IOS ? ios + and : and + ios}<button class="btn pri" type="button" data-accion="cerrar">Entendido</button>`);
+}
+function modalLogin() {
+  abrirModal(`<h2>${emo('🔒')} Entrar como editor</h2>
+    <p class="sub">${remoto() ? 'Ingresá tu clave para modificar los comercios.' : 'Modo de prueba: la clave está en CONFIG.claveLocal (por defecto 1234).'}</p>
+    ${remoto() && !CONFIG.adminEmail ? '<div class="campo"><label for="l_email">Correo del editor</label><input id="l_email" type="email" autocomplete="username"></div>' : ''}
+    <div class="campo"><label for="l_clave">Clave</label><input id="l_clave" type="password" autocomplete="current-password"></div>
+    <div class="err" id="l_err" role="alert"></div>
+    <button class="btn pri" type="button" data-accion="entrar">Entrar</button>
+    <button class="btn" type="button" data-accion="cerrar" style="margin-top:12px;width:100%">Cancelar</button>`);
+}
+async function entrar(boton) {
+  const clave = $('#l_clave').value, err = $('#l_err');
+  const fallo = m => { err.textContent = m; err.classList.add('on'); };
+  if (!clave) return fallo('Escribí la clave.');
+  boton.disabled = true;
+  try {
+    if (remoto()) {
+      const email = CONFIG.adminEmail || ($('#l_email') || {}).value || '';
+      if (!email) return fallo('Escribí el correo del editor.');
+      await loginSupabase(email.trim(), clave); S.editor = true; await recargar();
+    } else {
+      if (clave !== CONFIG.claveLocal) return fallo('Clave incorrecta.');
+      S.editor = true;
+    }
+    cerrarModal(); render(); toast('✏️ Modo editor activado');
+  } catch (e) { fallo(e.message === 'CLAVE' ? 'Clave incorrecta.' : 'No pudimos conectar. Revisá tu internet.'); }
+  finally { boton.disabled = false; }
+}
+async function salirEditor() { limpiarSesion(); if (remoto()) await recargar(); render(); toast('Saliste del modo editor'); }
+
+/* ---------- formulario de comercio ---------- */
+const emojiGrid = target => `<div class="emojis" role="group" aria-label="Elegir ícono">${EMOJIS.map(e => `<button type="button" data-accion="emoji" data-target="${target}" data-e="${esc(e)}" aria-label="${esc(e)}">${esc(e)}</button>`).join('')}</div>`;
+function formComercio(id) {
+  const c = id ? S.data.find(x => String(x.id) === String(id)) : null, n = !c;
+  const v = c || {categoria: (S.cat || (S.cats[0] || {}).id || ''), activo: true, imagenes: [], horarios: {}};
+  const h24 = c && es24(c);
+  const filasH = ORDEN.map(d => {
+    const r = rangos(v, d), p = i => (!h24 && r[i]) ? r[i] : ['', ''];
+    return `<div class="h-fila"><b>${DIAS[d].slice(0, 3)}</b><div class="h-par"><input type="time" id="f_h${d}_0a" value="${p(0)[0]}" aria-label="${DIAS[d]} abre"><span>a</span><input type="time" id="f_h${d}_0b" value="${p(0)[1]}" aria-label="${DIAS[d]} cierra"><span>y</span><input type="time" id="f_h${d}_1a" value="${p(1)[0]}" aria-label="${DIAS[d]} abre de tarde"><span>a</span><input type="time" id="f_h${d}_1b" value="${p(1)[1]}" aria-label="${DIAS[d]} cierra de tarde"></div></div>`;
+  }).join('');
+  abrirModal(`<h2>${emo(n ? '➕' : '✏️')} ${n ? 'Agregar comercio' : 'Editar comercio'}</h2>
+  <p class="sub">Los campos con * son obligatorios.</p>
+  <div class="campo"><label for="f_nombre">Nombre *</label><input type="text" id="f_nombre" value="${esc(v.nombre)}" maxlength="80"></div>
+  <div class="campo"><label for="f_cat">Categoría *</label><select id="f_cat">${S.cats.map(k => `<option value="${esc(k.id)}" ${k.id === v.categoria ? 'selected' : ''}>${esc(k.nombre)}</option>`).join('')}</select></div>
+  <div class="campo"><span class="et">Ícono</span><div class="icono-fila"><span class="vista-ic" id="f_icono_v">${iconoHtml(v.icono || catPorId(v.categoria).icono)}</span><input type="hidden" id="f_icono" value="${esc(v.icono || '')}"><input type="text" id="f_icono_t" value="${v.icono && !iconoKey(v.icono) ? esc(v.icono) : ''}" maxlength="8" placeholder="…o pegá un emoji" aria-label="Pegar un emoji"></div>
+    <small>Elegí un ícono. Si no elegís ninguno se usa el de la categoría.</small>${iconGrid('f_icono', v.icono)}
+    <div class="fila-b"><button class="btn" type="button" data-accion="emoji" data-target="f_icono" data-e="">Usar el de la categoría</button></div></div>
+  <div class="campo"><label for="f_desc">Qué hace (breve)</label><textarea id="f_desc" maxlength="300">${esc(v.descripcion)}</textarea></div>
+  <div class="campo"><label for="f_wa">Número de WhatsApp</label><input type="tel" id="f_wa" inputmode="tel" value="${esc(v.whatsapp)}" placeholder="Ej: 3584123456">
+    <small>Escribilo con código de área, sin 0 ni 15. Se guarda como 549… para que WhatsApp lo abra bien.</small>
+    <div class="fila-b"><button class="btn" type="button" data-accion="probar-wa">${emo('💬')}Probar WhatsApp</button></div></div>
+  <div class="campo"><label for="f_tel">Teléfono para llamar</label><input type="tel" id="f_tel" inputmode="tel" value="${esc(v.telefono)}" placeholder="Si es distinto al WhatsApp"></div>
+  <div class="campo"><label for="f_dir">Dirección</label><input type="text" id="f_dir" value="${esc(v.direccion)}"></div>
+  <div class="campo"><label for="f_barrio">Barrio</label><input type="text" id="f_barrio" value="${esc(v.barrio)}"></div>
+  <div class="campo"><span class="et">Ubicación en el mapa</span>
+    <div class="dos"><input type="text" id="f_lat" inputmode="decimal" value="${v.lat ?? ''}" placeholder="Latitud" aria-label="Latitud"><input type="text" id="f_lng" inputmode="decimal" value="${v.lng ?? ''}" placeholder="Longitud" aria-label="Longitud"></div>
+    <input type="text" id="f_maplink" placeholder="O pegá acá un enlace de Google Maps" aria-label="Enlace de Google Maps">
+    <small>En Google Maps mantené apretado el lugar, copiá los números que aparecen y pegalos acá. Los enlaces cortos (maps.app.goo.gl) no sirven: abrilos y copiá el enlace largo.</small>
+    <div class="fila-b"><button class="btn" type="button" data-accion="mapa-gps">${emo('📍')}Estoy en el local</button><button class="btn" type="button" data-accion="probar-mapa">${emo('🗺️')}Probar en el mapa</button></div></div>
+  <div class="campo"><label for="f_web">Página web</label><input type="url" id="f_web" value="${esc(v.web)}" placeholder="https://"></div>
+  <div class="campo"><label for="f_ig">Instagram</label><input type="text" id="f_ig" value="${esc(v.instagram)}" placeholder="usuario (sin @)"></div>
+  <div class="campo"><label for="f_imgs">Fotos (un enlace por línea)</label><textarea id="f_imgs" placeholder="https://drive.google.com/file/d/…/view">${esc((v.imagenes || []).join('\n'))}</textarea>
+    <small>Pegá el enlace de compartir de Drive. En Drive la foto tiene que estar compartida como «Cualquier persona con el enlace». La primera foto se ve en la lista.</small><div class="prev" id="f_prev"></div></div>
+  <div class="campo"><span class="et">Horarios</span>
+    <label class="check"><input type="checkbox" id="f_24" ${h24 ? 'checked' : ''}> Abierto las 24 horas todos los días</label>
+    <small>Cada día admite dos tramos (por ejemplo mañana y tarde). Dejá vacío si cierra. Si cierra pasada la medianoche, poné la hora real (ej. 01:00).</small>
+    <div id="f_horas">${filasH}</div>
+    <div class="fila-b"><button class="btn" type="button" data-accion="copiar-lun">Copiar lunes a lun–vie</button><button class="btn" type="button" data-accion="copiar-todos">Copiar lunes a todos</button></div></div>
+  <label class="check"><input type="checkbox" id="f_dest" ${v.destacado ? 'checked' : ''}> ⭐ Destacado (aparece primero entre los abiertos)</label>
+  <label class="check"><input type="checkbox" id="f_act" ${v.activo !== false ? 'checked' : ''}> 👁️ Visible al público</label>
+  <div class="err" id="f_err" role="alert"></div>
+  <button class="btn pri" type="button" data-accion="guardar" data-id="${esc(id || '')}">${emo('💾')}Guardar</button>
+  <button class="btn" type="button" data-accion="cerrar" style="margin-top:12px;width:100%">Cancelar</button>
+  ${n ? '' : `<button class="btn peligro" type="button" data-accion="eliminar" data-id="${esc(id)}" style="margin-top:12px;width:100%">${emo('🗑️')}Eliminar comercio</button>`}`, {grande: true, fijo: true});
+  actualizarH24(); previaFotos();
+}
+function actualizarH24() { const on = $('#f_24') && $('#f_24').checked; document.querySelectorAll('#f_horas input').forEach(i => i.disabled = on); }
+function previaFotos() {
+  const el = $('#f_prev'); if (!el) return;
+  el.innerHTML = $('#f_imgs').value.split(/\n+/).map(x => imgUrl(x)).filter(Boolean).slice(0, 6).map(u => `<img src="${esc(u)}" alt="" referrerpolicy="no-referrer" data-quitar>`).join('');
+}
+function parseMapa(txt) {
+  const m = txt.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/) || txt.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/) || txt.match(/[?&](?:q|query|ll|destination)=(-?\d+\.\d+)(?:,|%2C)(-?\d+\.\d+)/) || txt.match(/^\s*(-?\d+\.\d+)\s*[, ]\s*(-?\d+\.\d+)\s*$/);
+  return m ? {lat: +m[1], lng: +m[2]} : null;
+}
+function leerForm() {
+  const v = id => ($('#' + id) || {}).value || '';
+  const nombre = v('f_nombre').trim(); if (!nombre) throw new Error('Falta el nombre.');
+  if (!v('f_cat')) throw new Error('Elegí una categoría.');
+  let lat = v('f_lat').trim().replace(',', '.'), lng = v('f_lng').trim().replace(',', '.');
+  if (lat || lng) {
+    lat = Number(lat); lng = Number(lng);
+    if (!isFinite(lat) || !isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) throw new Error('La ubicación no es válida. Revisá latitud y longitud.');
+  } else { lat = null; lng = null; }
+  const horarios = {};
+  if ($('#f_24').checked) { for (let d = 0; d < 7; d++) horarios[d] = [['00:00', '24:00']]; }
+  else for (let d = 0; d < 7; d++) {
+    const rs = [];
+    for (let i = 0; i < 2; i++) {
+      const a = v(`f_h${d}_${i}a`), b = v(`f_h${d}_${i}b`);
+      if (a && b) rs.push([a, b]); else if (a || b) throw new Error(`Horario incompleto el ${DIAS[d].toLowerCase()}: falta la hora de apertura o de cierre.`);
+    }
+    if (rs.length) horarios[d] = rs;
+  }
+  let web = v('f_web').trim(); if (web && !/^https?:\/\//i.test(web)) web = 'https://' + web;
+  return {nombre, categoria: v('f_cat'), icono: v('f_icono').trim() || null, descripcion: v('f_desc').trim() || null, direccion: v('f_dir').trim() || null, barrio: v('f_barrio').trim() || null,
+    lat, lng, whatsapp: normWa(v('f_wa')) || null, telefono: v('f_tel').trim() || null, web: web || null, instagram: v('f_ig').trim().replace(/^@/, '') || null,
+    imagenes: v('f_imgs').split(/\n+/).map(x => x.trim()).filter(Boolean).slice(0, 6), horarios, destacado: $('#f_dest').checked, activo: $('#f_act').checked};
+}
+const mensajeError = e => e.message === 'SIN_PERMISO' ? 'No tenés permiso o la sesión venció. Salí del modo editor y volvé a entrar.' : (/duplicate|unique/i.test(e.message) ? 'Ya existe un registro con ese nombre.' : (e.message || 'No se pudo guardar.').slice(0, 220));
+function mostrarError(id, e) { const el = $('#' + id); if (!el) return; el.textContent = mensajeError(e); el.classList.add('on'); el.scrollIntoView({block: 'center', behavior: 'smooth'}); }
+
+/* ---------- categorías ---------- */
+function modalCats() {
+  abrirModal(`<h2>${emo('🏷️')} Categorías</h2><p class="sub">Cambiá el nombre, el ícono y el color. Para ordenar, usá las flechas o arrastrá los íconos en el inicio.</p>
+    <div class="lista-cats">${S.cats.map(k => `<div class="cat-fila"><span class="vista-ic" style="background:${esc(k.color)}">${iconoHtml(k.icono)}</span><b>${esc(k.nombre)}</b><span class="mover"><button type="button" data-accion="cat-sube" data-id="${esc(k.id)}" aria-label="Subir ${esc(k.nombre)}">↑</button><button type="button" data-accion="cat-baja" data-id="${esc(k.id)}" aria-label="Bajar ${esc(k.nombre)}">↓</button></span><button type="button" data-accion="cat-editar" data-id="${esc(k.id)}">Editar</button></div>`).join('')}</div>
+    <button class="btn am" type="button" data-accion="cat-editar" data-id="">${emo('➕')}Nueva categoría</button>
+    <button class="btn" type="button" data-accion="cerrar" style="margin-top:12px;width:100%">Cerrar</button>`, {grande: true});
+}
+function formCat(id) {
+  const k = id ? S.cats.find(x => x.id === id) : null, n = !k;
+  const v = k || {nombre: '', singular: '', icono: 'i:tienda', color: COLORES[S.cats.length % COLORES.length], palabras: []};
+  abrirModal(`<h2>${emo('🏷️')} ${n ? 'Nueva categoría' : 'Editar categoría'}</h2>
+    <div class="campo"><label for="c_nombre">Nombre en plural *</label><input type="text" id="c_nombre" value="${esc(v.nombre)}" placeholder="Ej: Gomerías" maxlength="40"></div>
+    <div class="campo"><label for="c_sing">Nombre en singular *</label><input type="text" id="c_sing" value="${esc(v.singular)}" placeholder="Ej: Gomería" maxlength="40"></div>
+    <div class="campo"><span class="et">Ícono</span><div class="icono-fila"><span class="vista-ic" id="c_icono_v" style="background:var(--nd-bg)">${iconoHtml(v.icono)}</span><input type="hidden" id="c_icono" value="${esc(v.icono)}"><input type="text" id="c_icono_t" value="${v.icono && !iconoKey(v.icono) ? esc(v.icono) : ''}" maxlength="8" placeholder="…o pegá un emoji" aria-label="Pegar un emoji"></div>${iconGrid('c_icono', v.icono)}</div>
+    <div class="campo"><span class="et">Color</span><div class="colores" id="c_colores">${COLORES.map(c => `<button type="button" data-accion="color" data-c="${c}" style="background:${c}" aria-label="Color ${c}" aria-pressed="${c === v.color}"></button>`).join('')}</div><input type="hidden" id="c_color" value="${esc(v.color)}"></div>
+    <div class="campo"><label for="c_pal">Palabras que la gente usa para buscarla</label><input type="text" id="c_pal" value="${esc((v.palabras || []).join(', '))}" placeholder="separadas por coma: cubierta, pinchadura, rueda"><small>Sirven para que la búsqueda la encuentre aunque no escriban el nombre exacto.</small></div>
+    <div class="err" id="c_err" role="alert"></div>
+    <button class="btn pri" type="button" data-accion="cat-guardar" data-id="${esc(id || '')}">${emo('💾')}Guardar</button>
+    <button class="btn" type="button" data-accion="cats" style="margin-top:12px;width:100%">Volver</button>
+    ${n ? '' : `<button class="btn peligro" type="button" data-accion="cat-borrar" data-id="${esc(id)}" style="margin-top:12px;width:100%">${emo('🗑️')}Eliminar categoría</button>`}`, {grande: true, fijo: true});
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EVENTOS
+   ══════════════════════════════════════════════════════════════ */
+function render() {
+  const r = ruta();
+  if (r.t === 'comercio') { vistaFicha(r.id); window.scrollTo(0, 0); }
+  else { vistaInicio(r); window.scrollTo(0, render.pos[location.hash || '#/'] || 0); }
+}
+render.pos = {};
+window.addEventListener('scroll', () => { render.pos[location.hash || '#/'] = window.scrollY; }, {passive: true});
+window.addEventListener('hashchange', () => { S.navegoDentro = true; render(); });
+document.addEventListener('error', e => {
+  const t = e.target; if (!t || t.tagName !== 'IMG') return;
+  if (t.dataset.fb !== undefined) { const s = document.createElement('span'); s.className = 'foto-fb'; s.style.setProperty('--c', t.dataset.color); s.innerHTML = iconoHtml(t.dataset.fb); t.replaceWith(s); }
+  else if (t.dataset.quitar !== undefined) t.remove();
+}, true);
+
+document.addEventListener('input', e => {
+  const id = e.target.id;
+  if (id === 'q') { S.q = e.target.value; refrescarResultados(); }
+  else if (id === 'f_imgs') previaFotos();
+  else if (id === 'f_icono' || id === 'c_icono') pintarIcono(id);
+  else if (id === 'f_icono_t' || id === 'c_icono_t') { const h = $('#' + id.slice(0, -2)); h.value = e.target.value.trim(); pintarIcono(h.id); document.querySelectorAll('.iconos [data-target="' + h.id + '"]').forEach(b => b.setAttribute('aria-pressed', 'false')); }
+  else if (id === 'f_cat') pintarIcono('f_icono');
+  else if (id === 'f_24') actualizarH24();
+  else if (id === 'f_maplink') { const p = parseMapa(e.target.value); if (p) { $('#f_lat').value = p.lat; $('#f_lng').value = p.lng; toast('📍 Ubicación tomada del enlace'); } }
+});
+document.addEventListener('change', e => { if (e.target.id === 'f_24') actualizarH24(); if (e.target.id === 'f_cat') pintarIcono('f_icono'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#velo').dataset.fijo !== '1') cerrarModal(); if (e.key === 'Enter' && e.target.id === 'l_clave') $('[data-accion=entrar]').click(); });
+$('#velo').addEventListener('click', e => { if (e.target.id === 'velo' && e.target.dataset.fijo !== '1') cerrarModal(); });
+
+const porId = id => S.data.find(x => String(x.id) === String(id));
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-accion]'); if (!el) return;
+  const a = el.dataset.accion, id = el.dataset.id;
+  switch (a) {
+    case 'instalar': return abrirInstalar();
+    case 'cerrar': return cerrarModal();
+    case 'limpiar': { S.q = ''; const i = $('#q'); i.value = ''; refrescarResultados(); return i.focus(); }
+    case 'abiertos': S.abiertos = !S.abiertos; return refrescarResultados();
+    case 'reset': S.q = ''; S.abiertos = false; if (S.cat) { location.hash = '#/'; } else { $('#q').value = ''; refrescarResultados(); } return;
+    case 'reintentar': return iniciar();
+    case 'volver': return (S.navegoDentro && history.length > 1) ? history.back() : (location.hash = '#/');
+    case 'mic': {
+      if (!SR) return toast('Tu navegador no entiende la voz. Escribí lo que buscás.');
+      const r = new SR(); r.lang = 'es-AR'; r.interimResults = false;
+      r.onresult = ev => { S.q = ev.results[0][0].transcript; $('#q').value = S.q; refrescarResultados(); };
+      r.onerror = () => toast('No te escuchamos bien. Probá de nuevo o escribí.');
+      toast('🎤 Hablá ahora…'); try { r.start(); } catch (err) {} return;
+    }
+    case 'cerca':
+      if (S.pos) { S.pos = null; return refrescarResultados(); }
+      if (!navigator.geolocation) return toast('Tu navegador no permite usar la ubicación.');
+      toast('📍 Buscando dónde estás…');
+      return navigator.geolocation.getCurrentPosition(p => { S.pos = {lat: p.coords.latitude, lng: p.coords.longitude}; $('#toast').classList.remove('on'); refrescarResultados(); },
+        er => toast(er.code === 1 ? 'No tenemos permiso para ver tu ubicación. Activalo en los ajustes del navegador.' : 'No pudimos saber dónde estás. Probá de nuevo.'),
+        {timeout: 10000, maximumAge: 120000});
+    case 'escuchar': { const c = porId(id); return c && hablar(textoVoz(c)); }
+    case 'compartir': {
+      const c = porId(id); if (!c) return;
+      try { if (navigator.share) await navigator.share({title: c.nombre, text: `${c.nombre} · ${catPorId(c.categoria).singular} en ${CONFIG.ciudad}`, url: location.href}); else { await navigator.clipboard.writeText(location.href); toast('Enlace copiado'); } }
+      catch (err) { if (err && err.name !== 'AbortError') toast('No pudimos compartir. Copiá el enlace desde la barra del navegador.'); }
+      return;
+    }
+    /* ── editor ── */
+    case 'login': return modalLogin();
+    case 'entrar': return entrar(el);
+    case 'salir': return salirEditor();
+    case 'nuevo': return S.cats.length ? formComercio(null) : toast('Primero creá una categoría.');
+    case 'editar': return formComercio(id);
+    case 'cats': return modalCats();
+    case 'cat-editar': return formCat(id);
+    case 'emoji': {
+      const t = el.dataset.target, i = $('#' + t), tx = $('#' + t + '_t'); if (tx) tx.value = '';
+      i.value = el.dataset.e; i.dispatchEvent(new Event('input', {bubbles: true}));
+      document.querySelectorAll('.iconos [data-target="' + t + '"]').forEach(b => b.setAttribute('aria-pressed', String(b === el))); return;
+    }
+    case 'color': document.querySelectorAll('#c_colores button').forEach(b => b.setAttribute('aria-pressed', b === el)); $('#c_color').value = el.dataset.c; return;
+    case 'probar-wa': { const n = normWa($('#f_wa').value); return n ? window.open('https://wa.me/' + n, '_blank', 'noopener') : toast('Escribí el número primero.'); }
+    case 'probar-mapa': { const la = $('#f_lat').value.replace(',', '.'), lo = $('#f_lng').value.replace(',', '.'); return (la && lo && isFinite(la) && isFinite(lo)) ? window.open(`https://www.google.com/maps/search/?api=1&query=${la},${lo}`, '_blank', 'noopener') : toast('Cargá primero latitud y longitud.'); }
+    case 'mapa-gps':
+      if (!navigator.geolocation) return toast('Tu navegador no permite usar la ubicación.');
+      toast('📍 Buscando dónde estás…');
+      return navigator.geolocation.getCurrentPosition(p => { $('#f_lat').value = p.coords.latitude.toFixed(6); $('#f_lng').value = p.coords.longitude.toFixed(6); toast('📍 Ubicación cargada'); }, () => toast('No pudimos obtener la ubicación. Pegá un enlace o las coordenadas.'), {enableHighAccuracy: true, timeout: 12000});
+    case 'copiar-lun': case 'copiar-todos': {
+      const vals = ['0a', '0b', '1a', '1b'].map(s => $(`#f_h1_${s}`).value);
+      const dias = a === 'copiar-lun' ? [2, 3, 4, 5] : [2, 3, 4, 5, 6, 0];
+      dias.forEach(d => ['0a', '0b', '1a', '1b'].forEach((s, i) => $(`#f_h${d}_${s}`).value = vals[i])); return toast('Horarios copiados');
+    }
+    case 'guardar': {
+      try { const campos = leerForm(); el.disabled = true; await guardarComercio(campos, id || null); cerrarModal(); render(); toast('✅ Guardado'); }
+      catch (err) { mostrarError('f_err', err); } finally { el.disabled = false; } return;
+    }
+    case 'eliminar': {
+      const c = porId(id); if (!c || !confirm(`¿Eliminar «${c.nombre}»? No se puede deshacer.\n\nSi solo querés ocultarlo, desmarcá «Visible al público».`)) return;
+      try { await borrarComercio(id); cerrarModal(); if (ruta().t === 'comercio') location.hash = '#/'; else render(); toast('🗑️ Eliminado'); } catch (err) { mostrarError('f_err', err); } return;
+    }
+    case 'cat-guardar': {
+      try {
+        const nombre = $('#c_nombre').value.trim(), singular = $('#c_sing').value.trim();
+        if (!nombre || !singular) throw new Error('Completá el nombre en plural y en singular.');
+        const k = {id: id || slugify(nombre), nombre, singular, icono: $('#c_icono').value.trim() || 'i:tienda', color: $('#c_color').value, palabras: $('#c_pal').value.split(',').map(x => x.trim()).filter(Boolean), orden: id ? (S.cats.find(x => x.id === id) || {}).orden || 0 : S.cats.length + 1};
+        if (!id && S.cats.some(x => x.id === k.id)) throw new Error('Ya existe una categoría con ese nombre.');
+        el.disabled = true; await guardarCategoria(k, !id); modalCats(); render(); toast('✅ Guardado');
+      } catch (err) { mostrarError('c_err', err); } finally { el.disabled = false; } return;
+    }
+    case 'cat-borrar': {
+      const k = S.cats.find(x => x.id === id); if (!k || !confirm(`¿Eliminar la categoría «${k.nombre}»?`)) return;
+      try { await borrarCategoria(id); modalCats(); render(); toast('🗑️ Eliminada'); } catch (err) { mostrarError('c_err', err); } return;
+    }
+    case 'exportar': {
+      const blob = new Blob([JSON.stringify({rows: S.raw, cats: S.cats}, null, 2)], {type: 'application/json'});
+      const l = document.createElement('a'); l.href = URL.createObjectURL(blob); l.download = 'directorio-copia.json'; l.click(); setTimeout(() => URL.revokeObjectURL(l.href), 2000); return toast('⬇️ Copia descargada');
+    }
+    case 'importar': return $('#fileImp').click();
+    case 'ver-mas': S.verTodas = true; $('#zonaTiles').innerHTML = tilesHtml(); return;
+    case 'ver-menos': S.verTodas = false; $('#zonaTiles').innerHTML = tilesHtml(); return;
+    case 'vis-menos': case 'vis-mas': {
+      const total = Number(($('#tilesNav') || {dataset: {}}).dataset.total) || 0, act = (S.nVis > 0 && S.nVis < total) ? S.nVis : total;
+      const n = Math.max(1, a === 'vis-mas' ? act + 1 : act - 1); S.nVis = n >= total ? 0 : n;
+      $('#zonaTiles').innerHTML = tilesHtml(); const b = $('[data-accion="' + a + '"]'); if (b) b.focus();
+      clearTimeout(S._tv);
+      S._tv = setTimeout(async () => { try { await guardarNVis(S.nVis); toast('✅ Guardado' + (remoto() ? ' para todos' : '')); } catch (err) { toast(mensajeError(err)); } }, 700);
+      return;
+    }
+    case 'cat-sube': case 'cat-baja': {
+      const ids = S.cats.map(k => k.id), i = ids.indexOf(id), j = a === 'cat-sube' ? i - 1 : i + 1;
+      if (i < 0 || j < 0 || j >= ids.length) return;
+      [ids[i], ids[j]] = [ids[j], ids[i]];
+      try { await guardarOrden(ids); render(); modalCats(); } catch (err) { toast(mensajeError(err)); } return;
+    }
+  }
+});
+/* ---------- ordenar categorías arrastrando (modo editor) ---------- */
+let arr = null;
+const idsEnOrden = () => [...document.querySelectorAll('#tilesNav .tw[data-id]')].map(x => x.dataset.id);
+async function persistirOrden(foco) {
+  try { await guardarOrden(idsEnOrden()); toast('✅ Orden guardado' + (remoto() ? ' para todos' : '')); }
+  catch (err) { toast(mensajeError(err)); await recargar(); }
+  const z = $('#zonaTiles'); if (!z) return;
+  z.innerHTML = tilesHtml();
+  if (foco) { const b = [...document.querySelectorAll('.asa')].find(x => x.dataset.asa === foco); if (b) b.focus(); }
+}
+document.addEventListener('pointerdown', e => {
+  const h = e.target.closest && e.target.closest('.asa'); if (!h) return;
+  e.preventDefault();
+  const w = h.closest('.tw'); try { h.setPointerCapture(e.pointerId); } catch (err) {}
+  arr = {w, id: e.pointerId, antes: idsEnOrden().join()}; w.classList.add('arrastrando');
+});
+document.addEventListener('pointermove', e => {
+  if (!arr || e.pointerId !== arr.id) return;
+  if (e.clientY < 90) window.scrollBy(0, -14); else if (e.clientY > innerHeight - 90) window.scrollBy(0, 14);
+  const t = document.elementFromPoint(e.clientX, e.clientY), o = t && t.closest('#tilesNav .tw[data-id]');
+  if (!o || o === arr.w) return;
+  const hijos = [...arr.w.parentNode.children];
+  // se mueve el vecino (no el que se arrastra) para no perder el control del dedo
+  if (hijos.indexOf(o) > hijos.indexOf(arr.w)) arr.w.parentNode.insertBefore(o, arr.w); else arr.w.parentNode.insertBefore(o, arr.w.nextSibling);
+});
+const finArr = e => {
+  if (!arr || e.pointerId !== arr.id) return;
+  const a = arr; arr = null; a.w.classList.remove('arrastrando');
+  if (a.antes !== idsEnOrden().join()) persistirOrden(a.w.dataset.id);
+};
+document.addEventListener('pointerup', finArr); document.addEventListener('pointercancel', finArr);
+document.addEventListener('keydown', e => {
+  const h = e.target.closest && e.target.closest('.asa'); if (!h) return;
+  const dir = {ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1}[e.key]; if (!dir) return;
+  e.preventDefault();
+  const w = h.closest('.tw'), o = dir < 0 ? w.previousElementSibling : w.nextElementSibling; if (!o) return;
+  if (dir < 0) w.parentNode.insertBefore(w, o); else w.parentNode.insertBefore(o, w);
+  persistirOrden(w.dataset.id);
+});
+
+$('#fileImp').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  try {
+    const j = JSON.parse(await f.text());
+    if (!Array.isArray(j.rows) || !Array.isArray(j.cats)) throw new Error('formato');
+    if (!confirm(`Se van a reemplazar los datos actuales por los del archivo (${j.rows.length} comercios). ¿Seguir?`)) return;
+    S.raw = j.rows; S.cats = j.cats; persistirLocal(); render(); toast('⬆️ Datos cargados');
+  } catch (err) { toast('Ese archivo no es una copia válida del directorio.'); }
+});
+
+async function iniciar() {
+  try { const t = sessionStorage.getItem('dir_tok'), x = Number(sessionStorage.getItem('dir_exp')); if (t && x > Date.now()) { S.token = t; S.editor = true; } } catch (e) {}
+  S.cargando = true; S.error = false; render();
+  aplicar(await cargarDatos()); S.cargando = false;
+  const y = window.scrollY; render(); window.scrollTo(0, y);
+}
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+iniciar();
+</script>
+</body>
+</html>
